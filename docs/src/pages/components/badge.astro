@@ -1,0 +1,48 @@
+---
+import Base from "@/docs/src/layouts/Base.astro";
+import { Badge } from "@/components/primitives/badge/badge";
+---
+
+<Base title="Badge">
+  <h1>Badge</h1>
+  <p>Compact label for status, priority, or metadata. Token-driven with three variant families.</p>
+
+  <h2>Default</h2>
+  <div class="demo">
+    <Badge>Default</Badge>
+    <Badge variant="default">Neutral</Badge>
+  </div>
+
+  <h2>Status</h2>
+  <div class="demo">
+    <Badge variant="status" type="todo">Todo</Badge>
+    <Badge variant="status" type="in_progress">In Progress</Badge>
+    <Badge variant="status" type="completed">Completed</Badge>
+    <Badge variant="status" type="in_review">In Review</Badge>
+  </div>
+
+  <h2>Priority</h2>
+  <div class="demo">
+    <Badge variant="priority" type="low">Low</Badge>
+    <Badge variant="priority" type="medium">Medium</Badge>
+    <Badge variant="priority" type="high">High</Badge>
+    <Badge variant="priority" type="urgent">Urgent</Badge>
+  </div>
+
+  <h2>Props</h2>
+  <table class="props-table">
+    <thead>
+      <tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>variant</code></td><td><code>"default" | "status" | "priority"</code></td><td><code>"default"</code></td><td>Visual variant family</td></tr>
+      <tr><td><code>type</code></td><td><code>string</code></td><td><code>"default"</code></td><td>Type within variant (e.g. <code>"todo"</code>, <code>"urgent"</code>)</td></tr>
+      <tr><td><code>children</code></td><td><code>ReactNode</code></td><td>—</td><td>Badge content</td></tr>
+      <tr><td><code>className</code></td><td><code>string</code></td><td>—</td><td>Additional classes</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Usage</h2>
+  <pre><code>{`<Badge variant="status" type="in_progress">In Progress</Badge>
+<Badge variant="priority" type="urgent">Urgent</Badge>`}</code></pre>
+</Base>

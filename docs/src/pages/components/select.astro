@@ -1,0 +1,27 @@
+---
+import Base from "@/docs/src/layouts/Base.astro";
+---
+
+<Base title="Select">
+  <h1>Select</h1>
+  <p>Native <code>&lt;select&gt;</code> wrapper with custom chevron icon, label association, and size variants.</p>
+
+  <h2>Props</h2>
+  <table class="props-table">
+    <thead>
+      <tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>size</code></td><td><code>"small" | "large"</code></td><td>—</td><td>Input size variant</td></tr>
+      <tr><td><code>label</code></td><td><code>string</code></td><td>—</td><td>Accessible label (visually hidden)</td></tr>
+      <tr><td><code>placeholder</code></td><td><code>string</code></td><td>—</td><td>Placeholder option text</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Usage</h2>
+  <pre><code>{`<Select label="Status" placeholder="Select status">
+  <option value="todo">Todo</option>
+  <option value="progress">In Progress</option>
+  <option value="done">Completed</option>
+</Select>`}</code></pre>
+</Base>

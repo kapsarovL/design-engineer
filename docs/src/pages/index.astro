@@ -1,0 +1,37 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base title="Overview">
+  <h1>Design Engineer</h1>
+  <p>
+    Token-driven component library built with React 19, SCSS Modules, and BEM
+    naming. Every primitive pulls from shared CSS custom properties for
+    consistent theming and dark mode support.
+  </p>
+
+  <h2>Principles</h2>
+  <ul>
+    <li><strong>Token-driven</strong> — all colors, spacing, typography from <code>tokens.scss</code></li>
+    <li><strong>CSS Modules</strong> — scoped styles, no class collisions</li>
+    <li><strong>BEM naming</strong> — <code>.block__element--modifier</code></li>
+    <li><strong>React 19</strong> — no forwardRef, ref as standard prop</li>
+    <li><strong>Dark mode</strong> — <code>.dark</code> class + <code>prefers-color-scheme</code></li>
+  </ul>
+
+  <h2>Components</h2>
+  <div class="demo">
+    <div class="demo-row">
+      <a href="/components/badge">Badge</a>
+      <a href="/components/card">Card</a>
+      <a href="/components/dialog">Dialog</a>
+      <a href="/components/dropdown-menu">Dropdown Menu</a>
+      <a href="/components/form-field">Form Field</a>
+      <a href="/components/icon">Icon</a>
+      <a href="/components/select">Select</a>
+      <a href="/components/tabs">Tabs</a>
+      <a href="/components/tag">Tag</a>
+      <a href="/components/tooltip">Tooltip</a>
+    </div>
+  </div>
+</Base>

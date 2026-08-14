@@ -1,0 +1,59 @@
+---
+import Base from "@/docs/src/layouts/Base.astro";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/primitives/card/card";
+import { Badge } from "@/components/primitives/badge/badge";
+---
+
+<Base title="Card">
+  <h1>Card</h1>
+  <p>Composable container with header, body, and footer sections. Supports interactive hover state via <code>--interactive</code> modifier.</p>
+
+  <h2>Static</h2>
+  <div class="demo">
+    <Card>
+      <CardHeader>
+        <CardTitle>Project Alpha</CardTitle>
+        <CardDescription>Active development sprint</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p style="margin:0">Building the core API layer with Drizzle ORM and Neon Postgres.</p>
+      </CardContent>
+      <CardFooter>
+        <Badge variant="status" type="in_progress">In Progress</Badge>
+      </CardFooter>
+    </Card>
+  </div>
+
+  <h2>Interactive</h2>
+  <div class="demo">
+    <Card interactive>
+      <CardHeader>
+        <CardTitle>Clickable Card</CardTitle>
+        <CardDescription>Hover to see the interaction</CardDescription>
+      </CardHeader>
+    </Card>
+  </div>
+
+  <h2>Props</h2>
+  <h3>Card</h3>
+  <table class="props-table">
+    <thead>
+      <tr><th>Prop</th><th>Type</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>interactive</code></td><td><code>boolean</code></td><td>Adds hover/focus styles</td></tr>
+      <tr><td><code>children</code></td><td><code>ReactNode</code></td><td>Card content</td></tr>
+      <tr><td><code>className</code></td><td><code>string</code></td><td>Additional classes</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Usage</h2>
+  <pre><code>{`<Card interactive>
+  <CardHeader>
+    <CardTitle>Title</CardTitle>
+    <CardDescription>Description</CardDescription>
+  </CardHeader>
+  <CardContent>Body content</CardContent>
+  <CardFooter>Footer actions</CardFooter>
+</Card>`}</code></pre>
+</Base>

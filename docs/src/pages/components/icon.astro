@@ -1,0 +1,46 @@
+---
+import Base from "@/docs/src/layouts/Base.astro";
+---
+
+<Base title="Icon">
+  <h1>Icon</h1>
+  <p>SVG sprite system. Renders icons from <code>public/sprites/icons.svg</code> via <code>&lt;use&gt;</code>.</p>
+
+  <h2>Available Icons</h2>
+  <div class="demo">
+    <div class="demo-row">
+      <code>check</code>
+      <code>close</code>
+      <code>search</code>
+      <code>settings</code>
+      <code>user</code>
+      <code>home</code>
+      <code>star</code>
+      <code>heart</code>
+      <code>mail</code>
+      <code>bell</code>
+      <code>calendar</code>
+      <code>clock</code>
+      <code>folder</code>
+      <code>trash</code>
+      <code>edit</code>
+      <code>plus</code>
+    </div>
+  </div>
+
+  <h2>Props</h2>
+  <table class="props-table">
+    <thead>
+      <tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>name</code></td><td><code>string</code></td><td>—</td><td>Icon name from the sprite</td></tr>
+      <tr><td><code>size</code></td><td><code>"sm" | "md" | "lg"</code></td><td><code>"md"</code></td><td>Icon size</td></tr>
+      <tr><td><code>className</code></td><td><code>string</code></td><td>—</td><td>Additional classes</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Usage</h2>
+  <pre><code>{`<Icon name="check" size="sm" />
+<Icon name="settings" size="lg" className="text-muted" />`}</code></pre>
+</Base>

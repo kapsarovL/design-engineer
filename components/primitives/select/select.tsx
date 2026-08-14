@@ -1,0 +1,66 @@
+"use client";
+
+import { Icon } from "../icon/icon";
+import styles from "./select.module.scss";
+
+interface SelectOption {
+  value: string;
+  label: string;
+}
+
+interface SelectProps
+  extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, "size"> {
+  options: SelectOption[];
+  placeholder?: string;
+  label?: string;
+  size?: "small" | "large";
+}
+
+export function Select({
+  options,
+  placeholder,
+  label,
+  size = "small",
+  className,
+  id,
+  ref,
+  ...props
+}: SelectProps & { ref?: React.Ref<HTMLSelectElement> }) {
+  const selectId =
+    id ?? props.name ?? `select-${Math.random().toString(36).slice(2, 8)}`;
+  return (
+    <div
+      className={`${styles.select} ${styles[`select--${size}`]} ${className ?? ""}`}
+    >
+      {label && (
+        <label htmlFor={selectId} className={styles.select__label}>
+          {label}
+        </label>
+      )}
+      <div className={styles.select__wrapper}>
+        <select
+          ref={ref}
+          id={selectId}
+          className={styles.select__native}
+          {...props}
+        >
+          {placeholder && (
+            <option value="" disabled>
+              {placeholder}
+            </option>
+          )}
+          {options.map((opt) => (
+            <option key={opt.value} value={opt.value}>
+              {opt.label}
+            </option>
+          ))}
+        </select>
+        <Icon
+          name="chevron-down"
+          size="sm"
+          className={styles.select__chevron}
+        />
+      </div>
+    </div>
+  );
+}

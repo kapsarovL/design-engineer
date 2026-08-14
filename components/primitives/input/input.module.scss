@@ -1,0 +1,115 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  height: 36px;
+  padding: 0 var(--space-3);
+  font-family: inherit;
+  font-size: 0.875rem;
+  line-height: 1;
+  color: var(--input-text);
+  background-color: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-md);
+  outline: none;
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+
+  &::placeholder {
+    color: var(--input-placeholder);
+  }
+
+  &:hover:not(:disabled) {
+    border-color: var(--input-border-hover);
+  }
+
+  &:focus {
+    border-color: var(--input-border-focus);
+    box-shadow: var(--shadow-focus);
+  }
+
+  &:disabled {
+    background-color: var(--input-disabled-bg);
+    color: var(--input-disabled-text);
+    cursor: not-allowed;
+  }
+}
+
+/* ── Sizes ────────────────────────────────────────── */
+
+.sm {
+  height: 32px;
+  font-size: 0.8125rem;
+  padding: 0 var(--space-3);
+}
+
+.md {
+  height: 36px;
+}
+
+.lg {
+  height: 40px;
+  font-size: 0.9375rem;
+  padding: 0 var(--space-4);
+}
+
+/* ── Error ────────────────────────────────────────── */
+
+.error {
+  border-color: var(--color-error);
+
+  &:focus {
+    box-shadow: var(--shadow-focus-destructive);
+  }
+}
+
+/* ── Icon support ─────────────────────────────────── */
+
+.hasIconStart {
+  padding-left: 2.25rem;
+}
+
+.hasIconEnd {
+  padding-right: 2.25rem;
+}
+
+.iconStart {
+  position: absolute;
+  left: var(--space-3);
+  display: flex;
+  align-items: center;
+  color: var(--input-placeholder);
+  pointer-events: none;
+}
+
+.iconEnd {
+  position: absolute;
+  right: var(--space-3);
+  display: flex;
+  align-items: center;
+  color: var(--input-placeholder);
+  pointer-events: none;
+}
+
+/* ── Helper / Error text ──────────────────────────── */
+
+.helper {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--color-text-muted);
+}
+
+.errorText {
+  color: var(--color-error-text);
+}

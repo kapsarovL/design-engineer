@@ -1,0 +1,34 @@
+---
+import Base from "@/docs/src/layouts/Base.astro";
+---
+
+<Base title="Form Field">
+  <h1>Form Field</h1>
+  <p>Composable form primitive that wires <code>id</code>, <code>htmlFor</code>, <code>aria-invalid</code>, and <code>aria-describedby</code> across sub-components via context.</p>
+
+  <h2>Sub-components</h2>
+  <ul>
+    <li><code>FormField</code> — root, provides context with <code>id</code>, <code>invalid</code>, <code>disabled</code></li>
+    <li><code>FormFieldLabel</code> — label with optional required indicator</li>
+    <li><code>FormFieldInput</code> — text input, auto-wires <code>id</code> and <code>aria-invalid</code></li>
+    <li><code>FormFieldTextarea</code> — textarea variant</li>
+    <li><code>FormFieldHelper</code> — helper text below input</li>
+    <li><code>FormFieldError</code> — error message, only renders when <code>invalid</code></li>
+  </ul>
+
+  <h2>Usage</h2>
+  <pre><code>{`<FormField invalid>
+  <FormFieldLabel required>Email</FormFieldLabel>
+  <FormFieldInput type="email" placeholder="you@example.com" />
+  <FormFieldError>Please enter a valid email.</FormFieldError>
+</FormField>
+
+<FormField>
+  <FormFieldLabel>Bio</FormFieldLabel>
+  <FormFieldTextarea placeholder="Tell us about yourself" />
+  <FormFieldHelper>Max 200 characters.</FormFieldHelper>
+</FormField>`}</code></pre>
+
+  <h2>Hooks</h2>
+  <p><code>useFormField()</code> returns <code>&#123; id, invalid, disabled &#125;</code> for custom sub-components.</p>
+</Base>

@@ -1,0 +1,95 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* ── Header ───────────────────────────────────────── */
+
+.header {
+  th {
+    text-align: left;
+    font-weight: 600;
+    color: var(--color-text);
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--color-border);
+    white-space: nowrap;
+  }
+}
+
+/* ── Body ─────────────────────────────────────────── */
+
+.body {
+  tr {
+    transition: background-color var(--transition-fast);
+  }
+
+  tr:hover {
+    background-color: var(--color-surface-hover);
+  }
+
+  td {
+    padding: var(--space-3) var(--space-4);
+    color: var(--color-text);
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: middle;
+  }
+}
+
+/* ── Footer ───────────────────────────────────────── */
+
+.footer {
+  td {
+    padding: var(--space-3) var(--space-4);
+    font-weight: 500;
+    color: var(--color-text);
+    border-top: 1px solid var(--color-border);
+  }
+}
+
+/* ── Caption ──────────────────────────────────────── */
+
+.caption {
+  caption-side: bottom;
+  padding: var(--space-3) var(--space-4);
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  text-align: left;
+}
+
+/* ── Striped rows ─────────────────────────────────── */
+
+.striped .body tr:nth-child(even) {
+  background-color: var(--color-surface);
+}
+
+/* ── Compact ──────────────────────────────────────── */
+
+.compact {
+  .header th,
+  .body td,
+  .footer td {
+    padding: var(--space-2) var(--space-3);
+  }
+}
+
+/* ── Bordered ─────────────────────────────────────── */
+
+.bordered {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.bordered .header th {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.bordered .body td {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.bordered .body tr:last-child td {
+  border-bottom: none;
+}

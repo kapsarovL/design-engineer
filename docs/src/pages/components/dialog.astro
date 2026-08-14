@@ -1,0 +1,46 @@
+---
+import Base from "@/docs/src/layouts/Base.astro";
+---
+
+<Base title="Dialog">
+  <h1>Dialog</h1>
+  <p>Modal dialog using the native <code>&lt;dialog&gt;</code> element. Composable sub-components for header, body, and footer.</p>
+
+  <h2>Structure</h2>
+  <p>Dialog uses <code>showModal()</code> / <code>close()</code> lifecycle with native <code>::backdrop</code> styling. Client-side component — requires <code>"use client"</code>.</p>
+
+  <h2>Sub-components</h2>
+  <ul>
+    <li><code>Dialog</code> — root wrapper, manages open/close state</li>
+    <li><code>DialogHeader</code> — title area with close button</li>
+    <li><code>DialogTitle</code> — heading text</li>
+    <li><code>DialogBody</code> — scrollable content area</li>
+    <li><code>DialogFooter</code> — action buttons</li>
+  </ul>
+
+  <h2>Props</h2>
+  <table class="props-table">
+    <thead>
+      <tr><th>Prop</th><th>Type</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>open</code></td><td><code>boolean</code></td><td>Controlled open state</td></tr>
+      <tr><td><code>onOpenChange</code></td><td><code>(open: boolean) => void</code></td><td>Called when open state changes</td></tr>
+      <tr><td><code>children</code></td><td><code>ReactNode</code></td><td>Dialog content</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Usage</h2>
+  <pre><code>{`<Dialog open={isOpen} onOpenChange={setIsOpen}>
+  <DialogHeader>
+    <DialogTitle>Confirm Action</DialogTitle>
+  </DialogHeader>
+  <DialogBody>
+    <p>Are you sure you want to proceed?</p>
+  </DialogBody>
+  <DialogFooter>
+    <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+    <Button variant="primary">Confirm</Button>
+  </DialogFooter>
+</Dialog>`}</code></pre>
+</Base>

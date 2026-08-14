@@ -1,0 +1,39 @@
+---
+import Base from "@/docs/src/layouts/Base.astro";
+---
+
+<Base title="Tabs">
+  <h1>Tabs</h1>
+  <p>ARIA-compliant tabbed navigation. Controlled or uncontrolled via <code>value</code> / <code>defaultValue</code>.</p>
+
+  <h2>Sub-components</h2>
+  <ul>
+    <li><code>Tabs</code> — root container, manages active tab</li>
+    <li><code>TabsList</code> — tab button row with <code>tablist</code> role</li>
+    <li><code>TabsTrigger</code> — individual tab button with <code>tab</code> role</li>
+    <li><code>TabsContent</code> — panel shown when tab is active</li>
+  </ul>
+
+  <h2>Props</h2>
+  <table class="props-table">
+    <thead>
+      <tr><th>Prop</th><th>Type</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>value</code></td><td><code>string</code></td><td>Controlled active tab value</td></tr>
+      <tr><td><code>defaultValue</code></td><td><code>string</code></td><td>Uncontrolled default active tab</td></tr>
+      <tr><td><code>onValueChange</code></td><td><code>(value: string) => void</code></td><td>Called when active tab changes</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Usage</h2>
+  <pre><code>{`<Tabs defaultValue="overview">
+  <TabsList>
+    <TabsTrigger value="overview">Overview</TabsTrigger>
+    <TabsTrigger value="details">Details</TabsTrigger>
+    <TabsTrigger value="settings" disabled>Settings</TabsTrigger>
+  </TabsList>
+  <TabsContent value="overview">Overview content</TabsContent>
+  <TabsContent value="details">Details content</TabsContent>
+</Tabs>`}</code></pre>
+</Base>

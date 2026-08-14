@@ -1,0 +1,96 @@
+.tagGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* ── TagList ──────────────────────────────────────── */
+
+.tagList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.tagList__label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tagList__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Tag ──────────────────────────────────────────── */
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  height: 1.5rem;
+  padding: 0 var(--space-2);
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  user-select: none;
+  transition: background-color var(--transition-fast);
+  margin: 0;
+}
+
+.tag--default {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.tag--default:hover {
+  background-color: var(--color-surface-hover);
+}
+
+.tag--status {
+  background-color: var(--color-status-todo-bg);
+  color: var(--color-status-todo-text);
+}
+
+.tag--priority {
+  background-color: var(--color-priority-low-bg);
+  color: var(--color-priority-low-text);
+}
+
+/* ── Dismiss ──────────────────────────────────────── */
+
+.tag__dismiss {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+  height: 1rem;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: var(--radius-xs);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity var(--transition-fast), background-color var(--transition-fast);
+}
+
+.tag__dismiss:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.tag__dismiss:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}

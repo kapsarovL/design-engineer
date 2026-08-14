@@ -1,0 +1,39 @@
+---
+import Base from "@/docs/src/layouts/Base.astro";
+---
+
+<Base title="Dropdown Menu">
+  <h1>Dropdown Menu</h1>
+  <p>Context-based dropdown with click-outside and ESC close. Supports destructive items.</p>
+
+  <h2>Sub-components</h2>
+  <ul>
+    <li><code>DropdownMenu</code> — root, manages open state</li>
+    <li><code>DropdownMenuTrigger</code> — button that toggles the menu</li>
+    <li><code>DropdownMenuContent</code> — positioned menu panel</li>
+    <li><code>DropdownMenuItem</code> — individual menu action</li>
+  </ul>
+
+  <h2>Props</h2>
+  <table class="props-table">
+    <thead>
+      <tr><th>Prop</th><th>Type</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>type</code></td><td><code>"default" | "error"</code></td><td>Item visual variant (<code>"error"</code> = destructive)</td></tr>
+      <tr><td><code>onClick</code></td><td><code>() => void</code></td><td>Click handler</td></tr>
+      <tr><td><code>disabled</code></td><td><code>boolean</code></td><td>Disable the item</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Usage</h2>
+  <pre><code>{`<DropdownMenu>
+  <DropdownMenuTrigger>Actions</DropdownMenuTrigger>
+  <DropdownMenuContent>
+    <DropdownMenuItem onClick={handleEdit}>Edit</DropdownMenuItem>
+    <DropdownMenuItem type="error" onClick={handleDelete}>
+      Delete
+    </DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>`}</code></pre>
+</Base>

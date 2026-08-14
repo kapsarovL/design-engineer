@@ -1,0 +1,30 @@
+---
+import Base from "@/docs/src/layouts/Base.astro";
+---
+
+<Base title="Tooltip">
+  <h1>Tooltip</h1>
+  <p>Hover/focus tooltip wrapping <code>nextjs-components</code> via deep import. Local SCSS styling with geist token overrides.</p>
+
+  <h2>Props</h2>
+  <table class="props-table">
+    <thead>
+      <tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>text</code></td><td><code>string</code></td><td>—</td><td>Tooltip content</td></tr>
+      <tr><td><code>side</code></td><td><code>"top" | "bottom" | "left" | "right"</code></td><td><code>"top"</code></td><td>Tooltip position</td></tr>
+      <tr><td><code>delay</code></td><td><code>number</code></td><td>—</td><td>Show delay in ms</td></tr>
+      <tr><td><code>invert</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Invert color scheme</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Usage</h2>
+  <pre><code>{`<Tooltip text="Save changes" side="bottom">
+  <button>Save</button>
+</Tooltip>
+
+<Tooltip text="Delete this item" side="right" delay={500}>
+  <Icon name="trash" size="sm" />
+</Tooltip>`}</code></pre>
+</Base>

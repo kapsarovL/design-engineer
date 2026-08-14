@@ -1,0 +1,67 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+  user-select: none;
+}
+
+/* Status Variants */
+.status.todo {
+  background-color: var(--color-status-todo-bg);
+  color: var(--color-status-todo-text);
+}
+
+.status.in_progress {
+  background-color: var(--color-status-progress-bg);
+  color: var(--color-status-progress-text);
+}
+
+.status.completed {
+  background-color: var(--color-status-completed-bg);
+  color: var(--color-status-completed-text);
+}
+
+.status.in_review {
+  background-color: var(--color-status-review-bg);
+  color: var(--color-status-review-text);
+}
+
+/* Priority Variants */
+.priority {
+  text-transform: uppercase;
+  font-size: 0.6875rem;
+  padding: 0.15rem 0.5rem;
+}
+
+.priority.low {
+  background-color: var(--color-priority-low-bg);
+  color: var(--color-priority-low-text);
+}
+
+.priority.medium {
+  background-color: var(--color-priority-medium-bg);
+  color: var(--color-priority-medium-text);
+}
+
+.priority.high {
+  background-color: var(--color-priority-high-bg);
+  color: var(--color-priority-high-text);
+}
+
+.priority.urgent {
+  background-color: var(--color-priority-urgent-bg);
+  color: var(--color-priority-urgent-text);
+  box-shadow: 0 0 0 1px rgba(225, 29, 72, 0.3);
+}
+
+/* Default */
+.default {
+  background-color: var(--color-surface);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+}

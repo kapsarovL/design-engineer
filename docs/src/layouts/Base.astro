@@ -1,0 +1,239 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Design system documentation" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} — Design Engineer</title>
+    <meta name="description" content={description} />
+    <style is:global>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Inter", system-ui, -apple-system, sans-serif;
+        background-color: var(--color-bg);
+        color: var(--color-text);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: var(--color-primary);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      code {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.875em;
+        background: #161b22;
+        color: #e6edf3;
+        padding: 0.15em 0.4em;
+        border-radius: var(--radius-xs);
+        border: 1px solid #30363d;
+      }
+
+      pre {
+        background: #0d1117;
+        color: #e6edf3;
+        border: 1px solid #30363d;
+        border-radius: var(--radius-md);
+        padding: var(--space-4);
+        overflow-x: auto;
+        font-size: 0.875rem;
+        line-height: 1.5;
+      }
+
+      pre code {
+        background: none;
+        border: none;
+        padding: 0;
+        color: inherit;
+      }
+
+      /* Layout */
+      .layout {
+        display: grid;
+        grid-template-columns: 240px 1fr;
+        min-height: 100vh;
+      }
+
+      .sidebar {
+        border-right: 1px solid var(--color-border);
+        padding: var(--space-6) var(--space-4);
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        overflow-y: auto;
+      }
+
+      .sidebar__title {
+        font-size: 1.125rem;
+        font-weight: 700;
+        margin: 0 0 var(--space-6);
+        color: var(--color-text);
+      }
+
+      .sidebar__nav {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-1);
+      }
+
+      .sidebar__link {
+        display: block;
+        padding: var(--space-2) var(--space-3);
+        border-radius: var(--radius-sm);
+        font-size: 0.875rem;
+        color: var(--color-text-secondary);
+        transition: background-color 150ms, color 150ms;
+      }
+
+      .sidebar__link:hover {
+        background: var(--color-surface-hover);
+        color: var(--color-text);
+        text-decoration: none;
+      }
+
+      .sidebar__link--active {
+        background: var(--color-primary-light);
+        color: var(--color-primary-text);
+        font-weight: 500;
+      }
+
+      .main {
+        padding: var(--space-8) var(--space-10);
+        max-width: 900px;
+      }
+
+      .main h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 0 0 var(--space-2);
+        letter-spacing: -0.025em;
+      }
+
+      .main h2 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin: var(--space-8) 0 var(--space-3);
+        padding-top: var(--space-4);
+        border-top: 1px solid var(--color-border);
+        letter-spacing: -0.015em;
+      }
+
+      .main h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin: var(--space-6) 0 var(--space-2);
+      }
+
+      .main p {
+        margin: 0 0 var(--space-3);
+        color: var(--color-text-secondary);
+        max-width: 65ch;
+      }
+
+      .main ul {
+        padding-left: var(--space-5);
+        margin: 0 0 var(--space-4);
+      }
+
+      .main li {
+        margin-bottom: var(--space-1);
+        color: var(--color-text-secondary);
+      }
+
+      .demo {
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        padding: var(--space-6);
+        margin: var(--space-4) 0;
+        background: var(--color-surface);
+      }
+
+      .demo-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-3);
+        align-items: center;
+      }
+
+      .props-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.875rem;
+        margin: var(--space-3) 0;
+      }
+
+      .props-table th,
+      .props-table td {
+        text-align: left;
+        padding: var(--space-2) var(--space-3);
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .props-table th {
+        font-weight: 600;
+        color: var(--color-text);
+        background: var(--color-surface);
+      }
+
+      .props-table td {
+        color: var(--color-text-secondary);
+      }
+
+      @media (max-width: 768px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+
+        .sidebar {
+          position: static;
+          height: auto;
+          border-right: none;
+          border-bottom: 1px solid var(--color-border);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="sidebar__title">Design Engineer</div>
+        <nav class="sidebar__nav">
+          <a href="/" class="sidebar__link">Overview</a>
+          <a href="/components/badge" class="sidebar__link">Badge</a>
+          <a href="/components/card" class="sidebar__link">Card</a>
+          <a href="/components/dialog" class="sidebar__link">Dialog</a>
+          <a href="/components/dropdown-menu" class="sidebar__link">Dropdown Menu</a>
+          <a href="/components/form-field" class="sidebar__link">Form Field</a>
+          <a href="/components/icon" class="sidebar__link">Icon</a>
+          <a href="/components/select" class="sidebar__link">Select</a>
+          <a href="/components/tabs" class="sidebar__link">Tabs</a>
+          <a href="/components/tag" class="sidebar__link">Tag</a>
+          <a href="/components/tooltip" class="sidebar__link">Tooltip</a>
+        </nav>
+      </aside>
+      <main class="main">
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>
