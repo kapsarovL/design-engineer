@@ -1,0 +1,223 @@
+/* ═══════════════════════════════════════════════════════
+   Premium Motion — High-End Visual Design
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Custom Cubic-Beziers ─────────────────────────── */
+:root {
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
+  --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-fluid: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Premium timing */
+  --duration-fast: 200ms;
+  --duration-normal: 400ms;
+  --duration-slow: 700ms;
+  --duration-reveal: 900ms;
+
+  /* Double-bezel radii */
+  --radius-bezel: 1.25rem;
+  --radius-bezel-inner: calc(1.25rem - 6px);
+}
+
+/* ── Scroll Reveal Animations ─────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  filter: blur(4px);
+  transition:
+    opacity var(--duration-reveal) var(--ease-out-expo),
+    transform var(--duration-reveal) var(--ease-out-expo),
+    filter var(--duration-reveal) var(--ease-out-expo);
+  will-change: opacity, transform, filter;
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* Staggered children */
+.reveal-child {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity var(--duration-slow) var(--ease-out-expo),
+    transform var(--duration-slow) var(--ease-out-expo);
+}
+
+.reveal.revealed .reveal-child {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal.revealed .reveal-child:nth-child(1) { transition-delay: 0ms; }
+.reveal.revealed .reveal-child:nth-child(2) { transition-delay: 80ms; }
+.reveal.revealed .reveal-child:nth-child(3) { transition-delay: 160ms; }
+.reveal.revealed .reveal-child:nth-child(4) { transition-delay: 240ms; }
+.reveal.revealed .reveal-child:nth-child(5) { transition-delay: 320ms; }
+.reveal.revealed .reveal-child:nth-child(6) { transition-delay: 400ms; }
+
+/* ── Floating Glass Navbar ────────────────────────── */
+.floatingNav {
+  position: sticky;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  width: max-content;
+  max-width: calc(100vw - 2rem);
+  background: color-mix(in oklch, var(--color-surface-card) 80%, transparent);
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  border: 1px solid var(--color-border);
+  border-radius: 9999px;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.06),
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  transition: all var(--duration-normal) var(--ease-spring);
+}
+
+/* ── Double-Bezel Card ────────────────────────────── */
+.doubleBezel {
+  position: relative;
+  padding: 6px;
+  border-radius: var(--radius-bezel);
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklch, var(--color-border) 40%, transparent),
+    color-mix(in oklch, var(--color-border) 20%, transparent)
+  );
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 4px 12px rgba(0, 0, 0, 0.03);
+  transition: all var(--duration-normal) var(--ease-spring);
+}
+
+.doubleBezel:hover {
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.06),
+    0 8px 24px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
+}
+
+.doubleBezelInner {
+  border-radius: var(--radius-bezel-inner);
+  background: var(--color-surface-card);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  overflow: hidden;
+}
+
+/* ── Eyebrow Tag ──────────────────────────────────── */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+  border-radius: 9999px;
+  margin-bottom: 0.75rem;
+  width: fit-content;
+}
+
+.eyebrowDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  opacity: 0.6;
+}
+
+/* ── Magnetic Button Hover ────────────────────────── */
+.magneticBtn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all var(--duration-fast) var(--ease-spring);
+}
+
+.magneticBtn:hover {
+  transform: scale(0.97);
+}
+
+.magneticBtn:active {
+  transform: scale(0.95);
+}
+
+.magneticBtnIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.06);
+  transition: all var(--duration-fast) var(--ease-spring);
+}
+
+.magneticBtn:hover .magneticBtnIcon {
+  transform: translate(2px, -1px) scale(1.05);
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* ── Ambient Glow (behind cards) ──────────────────── */
+.ambientGlow {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.ambientGlowPrimary {
+  background: var(--color-primary);
+}
+
+.ambientGlowSuccess {
+  background: var(--color-success);
+}
+
+/* ── Premium Section Spacing ──────────────────────── */
+.premiumSection {
+  padding: 3rem 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .premiumSection {
+    padding: 4rem 3rem;
+  }
+}
+
+/* ── Grain Overlay (fixed, pointer-events-none) ───── */
+.grainOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px;
+}
+
+/* ── Focus Ring (premium) ─────────────────────────── */
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}

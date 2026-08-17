@@ -1,0 +1,74 @@
+/* ── Menu ─────────────────────────────────────────── */
+
+.menu {
+  min-width: 12rem;
+  background-color: var(--color-surface-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-1) 0;
+  outline: none;
+
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+/* ── MenuItem ─────────────────────────────────────── */
+
+.menu__item {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  font-size: 0.875rem;
+  color: var(--color-text);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 150ms ease;
+  outline: none;
+
+  &:hover,
+  &:focus {
+    background-color: var(--color-surface-hover);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: -2px;
+  }
+
+  &[data-destructive] {
+    color: var(--color-status-error);
+  }
+}
+
+.menu__item--destructive {
+  color: var(--color-status-error);
+}
+
+/* ── Separator ────────────────────────────────────── */
+
+.menu__separator {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: var(--space-1) 0;
+}
+
+/* ── Group ────────────────────────────────────────── */
+
+.menu__group {
+  padding: var(--space-1) 0;
+}
+
+.menu__label {
+  padding: var(--space-1) var(--space-3);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}

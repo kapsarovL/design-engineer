@@ -1,5 +1,6 @@
 "use client";
 
+import { useId } from "react";
 import { Icon } from "../icon/icon";
 import styles from "./select.module.scss";
 
@@ -26,8 +27,8 @@ export function Select({
   ref,
   ...props
 }: SelectProps & { ref?: React.Ref<HTMLSelectElement> }) {
-  const selectId =
-    id ?? props.name ?? `select-${Math.random().toString(36).slice(2, 8)}`;
+  const generatedId = useId();
+  const selectId = id ?? props.name ?? generatedId;
   return (
     <div
       className={`${styles.select} ${styles[`select--${size}`]} ${className ?? ""}`}

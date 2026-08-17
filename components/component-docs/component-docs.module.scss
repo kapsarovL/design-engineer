@@ -1,0 +1,172 @@
+/* ── ComponentDocs inline toggle ─────────────────────── */
+
+.compDocs {
+  margin-top: var(--space-3);
+}
+
+.compDocsToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.compDocsToggle:hover {
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.compDocsIcon {
+  font-size: 10px;
+}
+
+.compDocsBody {
+  margin-top: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.compDocsDesc {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin: 0 0 var(--space-3);
+  line-height: 1.6;
+}
+
+.compDocsImport {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+  margin-bottom: var(--space-4);
+}
+
+.compDocsImportLabel {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.compDocsImportCode {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-text);
+}
+
+.compDocsHeading {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: var(--space-4) 0 var(--space-2);
+}
+
+.compDocsTableWrap {
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.compDocsTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+
+.compDocsTable th {
+  text-align: left;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.compDocsTable td {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
+  vertical-align: top;
+}
+
+.compDocsTable tr:last-child td {
+  border-bottom: none;
+}
+
+.compDocsTable code {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  background: var(--color-bg);
+  padding: 1px 4px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.compDocsExamples {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.compDocsExample {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.compDocsExampleLabel {
+  display: block;
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.compDocsCode {
+  margin: 0;
+  padding: var(--space-3);
+  background: var(--color-bg);
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--color-text);
+  white-space: pre;
+}
+
+.compDocsA11yList {
+  margin: 0;
+  padding-left: var(--space-5);
+}
+
+.compDocsA11yList li {
+  margin-bottom: var(--space-1);
+  font-size: 11px;
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+.compDocsA11yList li:last-child {
+  margin-bottom: 0;
+}

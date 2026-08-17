@@ -1,6 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { Menu } from "../menu/menu";
+import { MenuItem } from "../menu/menu";
 import styles from "./dropdown-menu.module.scss";
 
 /* ── Context ──────────────────────────────────────── */
@@ -37,28 +39,34 @@ export function DropdownMenu({ children, className }: DropdownMenuProps) {
 
 interface DropdownMenuTriggerProps {
   children: React.ReactNode;
+  asChild?: boolean;
   className?: string;
 }
 
 export function DropdownMenuTrigger({
   children,
+  asChild,
   className,
 }: DropdownMenuTriggerProps) {
   const { open, setOpen } = use(DropdownMenuContext);
   const ref = useRef<HTMLButtonElement>(null);
 
-  return (
-    <button
-      ref={ref}
-      type="button"
-      aria-expanded={open}
-      aria-haspopup="true"
-      className={`${styles.dropdown__trigger} ${className ?? ""}`}
-      onClick={() => setOpen((o) => !o)}
-    >
-      {children}
-    </button>
-  );
+  const triggerProps = {
+    ref,
+    type: "button" as const,
+    "aria-expanded": open,
+    "aria-haspopup": "true" as const,
+    "data-state": open ? "open" : "closed",
+    className: `${styles.dropdown__trigger} ${className ?? ""}`,
+    onClick: () => setOpen((o) => !o),
+  };
+
+  if (asChild) {
+    const child = children as React.ReactElement;
+    return React.cloneElement(child, triggerProps as Record<string, unknown>);
+  }
+
+  return <button {...triggerProps}>{children}</button>;
 }
 
 /* ── Content ──────────────────────────────────────── */
@@ -66,11 +74,13 @@ export function DropdownMenuTrigger({
 interface DropdownMenuContentProps {
   children: React.ReactNode;
   className?: string;
+  align?: "start" | "center" | "end";
 }
 
 export function DropdownMenuContent({
   children,
   className,
+  align = "end",
 }: DropdownMenuContentProps) {
   const { open, setOpen } = use(DropdownMenuContext);
   const ref = useRef<HTMLDivElement>(null);
@@ -103,18 +113,26 @@ export function DropdownMenuContent({
 
   if (!open) return null;
 
+  const alignClass =
+    align === "start"
+      ? styles["dropdown__content--start"]
+      : align === "center"
+        ? styles["dropdown__content--center"]
+        : "";
+
   return (
     <div
       ref={ref}
-      role="menu"
-      className={`${styles.dropdown__content} ${className ?? ""}`}
+      className={`${styles.dropdown__content} ${alignClass} ${className ?? ""}`}
     >
-      {children}
+      <Menu onClose={() => setOpen(false)} className={styles.dropdown__menu}>
+        {children}
+      </Menu>
     </div>
   );
 }
 
-/* ── Item ─────────────────────────────────────────── */
+/* ── Item (re-exports MenuItem with same API) ─────── */
 
 interface DropdownMenuItemProps {
   children: React.ReactNode;
@@ -129,19 +147,9 @@ export function DropdownMenuItem({
   destructive,
   className,
 }: DropdownMenuItemProps) {
-  const { setOpen } = use(DropdownMenuContext);
-
   return (
-    <button
-      type="button"
-      role="menuitem"
-      className={`${styles.dropdown__item} ${destructive ? styles["dropdown__item--destructive"] : ""} ${className ?? ""}`}
-      onClick={() => {
-        onClick?.();
-        setOpen(false);
-      }}
-    >
+    <MenuItem destructive={destructive} className={className} onClick={onClick}>
       {children}
-    </button>
+    </MenuItem>
   );
 }

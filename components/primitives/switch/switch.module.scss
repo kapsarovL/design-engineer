@@ -1,0 +1,99 @@
+/* ── Switch ─────────────────────────────────────────── */
+
+.switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  border: none;
+  background-color: var(--color-surface-hover);
+  cursor: pointer;
+  transition:
+    background-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+  padding: 0;
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+/* ── Sizes ─────────────────────────────────────────── */
+
+.switch--sm {
+  width: 2rem;
+  height: 1.125rem;
+  border-radius: 9999px;
+}
+
+.switch--md {
+  width: 2.5rem;
+  height: 1.375rem;
+  border-radius: 9999px;
+}
+
+.switch--lg {
+  width: 3rem;
+  height: 1.625rem;
+  border-radius: 9999px;
+}
+
+/* ── Thumb ─────────────────────────────────────────── */
+
+.thumb {
+  display: block;
+  border-radius: 50%;
+  background-color: var(--color-bg);
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  transition: transform var(--transition-fast);
+}
+
+.switch--sm .thumb {
+  width: 0.875rem;
+  height: 0.875rem;
+  transform: translateX(0.125rem);
+}
+
+.switch--md .thumb {
+  width: 1.125rem;
+  height: 1.125rem;
+  transform: translateX(0.125rem);
+}
+
+.switch--lg .thumb {
+  width: 1.375rem;
+  height: 1.375rem;
+  transform: translateX(0.125rem);
+}
+
+/* ── On state ──────────────────────────────────────── */
+
+.switch--on {
+  background-color: var(--color-primary);
+}
+
+.switch--on.switch--sm .thumb {
+  transform: translateX(1rem);
+}
+
+.switch--on.switch--md .thumb {
+  transform: translateX(1.25rem);
+}
+
+.switch--on.switch--lg .thumb {
+  transform: translateX(1.5rem);
+}
+
+/* ── Disabled ──────────────────────────────────────── */
+
+.switch--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+
+  &:hover {
+    background-color: var(--color-surface-hover);
+  }
+}

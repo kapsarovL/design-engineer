@@ -1,12 +1,13 @@
 @use "./tokens.scss";
 @use "./resets.scss";
+@use "./premium.scss";
 
 body {
   background-color: var(--color-bg);
   color: var(--color-text);
   transition:
-    background-color var(--transition-fast),
-    color var(--transition-fast);
+    background-color var(--duration-fast) var(--ease-fluid),
+    color var(--duration-fast) var(--ease-fluid);
 }
 
 /* Base custom scrollbars for table */

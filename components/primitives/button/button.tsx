@@ -41,6 +41,7 @@ export function Button({
         .filter(Boolean)
         .join(" ")}
       disabled={disabled || loading}
+      data-loading={loading ? "" : undefined}
       {...props}
     >
       {loading ? (

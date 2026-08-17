@@ -57,10 +57,14 @@
 - [x] CodePanel wired into page — SidebarItem onClick opens code panel for the selected component. State management via `useState<string | null>`.
 - [x] Section width constraint — `.sectionInner` with `max-width: 960px` centers and narrows showcase content.
 - [x] All gates pass: `tsc --noEmit` (0 errors), `pnpm build` (success).
+- [x] Multi-step onboarding flow with Zustand store — Welcome, Profile, Preferences, Team, Complete steps.
+- [x] Onboarding store with validation, persistence (localStorage), navigation guards, progress tracking.
+- [x] Progress primitive component for step indicator.
+- [x] Onboarding showcase section added to page with live demo and code example.
 
 ## In Progress / Next Steps
 
-- [ ] Complete multi-step onboarding Zustand store integration.
+- [ ] Define next feature milestone.
 
 ## Notes
 

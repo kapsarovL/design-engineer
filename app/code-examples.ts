@@ -457,4 +457,33 @@ import { Icon } from "@/components/primitives/icon/icon";
   const x = 42;
 </code>`,
   },
+  onboarding: {
+    title: "Onboarding Flow",
+    source: `import { OnboardingFlow } from "@/components/features/onboarding";
+
+// Full onboarding flow with all steps
+<OnboardingFlow />
+
+// Or use individual steps with custom orchestration
+import {
+  WelcomeStep,
+  ProfileStep,
+  PreferencesStep,
+  TeamStep,
+  CompleteStep,
+  useOnboardingStore,
+} from "@/components/features/onboarding";
+
+// Store provides:
+// - useOnboardingStore() - full state + actions
+// - selectProfileData, selectPreferencesData, selectTeamData
+// - nextStep(), prevStep(), goToStep(step)
+// - validateStep(step), completeOnboarding(), resetOnboarding()
+// - Persists to localStorage automatically
+
+// Custom step component example:
+// <ProfileStep />
+// <PreferencesStep />
+// etc.`, // <-- End of onboarding source
+  },
 };
