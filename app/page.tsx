@@ -196,6 +196,40 @@ const ShowcaseContent = memo(function ShowcaseContent() {
   return (
     <div className={styles.pageScroll} data-scroll-container ref={scrollRef}>
       <div className={styles.sectionInner}>
+        {/* ── Hero ─────────────────────────────────────── */}
+        <section id="hero" className={styles.heroSection}>
+          {/* Ambient glow behind hero */}
+          <div
+            className="ambientGlow ambientGlowPrimary"
+            style={{
+              top: "-80px",
+              right: "-60px",
+              width: "500px",
+              height: "400px",
+            }}
+          />
+          <div className={styles.heroContent}>
+            <span className={styles.heroBadge}>Design System v1.0</span>
+            <h1 className={styles.heroTitle}>
+              Component primitives built for
+              <br />
+              real product teams
+            </h1>
+            <p className={styles.heroSubtitle}>
+              22 accessible components with compound APIs, SCSS Modules,
+              four-theme token architecture, and a premium motion layer.
+            </p>
+          </div>
+          <div className={styles.heroActions}>
+            <Button variant="primary" size="lg" icon={<span>→</span>}>
+              Explore components
+            </Button>
+            <Button variant="ghost" size="lg">
+              View tokens
+            </Button>
+          </div>
+        </section>
+
         {/* ── Buttons ───────────────────────────────── */}
         <section id="button" className={`${styles.showcaseSection} reveal`}>
           <span className="eyebrow">
@@ -442,6 +476,9 @@ const ShowcaseContent = memo(function ShowcaseContent() {
 
         {/* ── Card ──────────────────────────────────── */}
         <section id="card" className={`${styles.showcaseSection} reveal`}>
+          <span className="eyebrow">
+            <span className="eyebrowDot"></span> Primitives
+          </span>
           <h2 className={styles.sectionTitle}>Card</h2>
           <p className={styles.sectionDesc}>
             Compound component for content surfaces. Compose with{" "}
@@ -574,6 +611,9 @@ const ShowcaseContent = memo(function ShowcaseContent() {
 
         {/* ── Tabs ──────────────────────────────────── */}
         <section id="tabs" className={`${styles.showcaseSection} reveal`}>
+          <span className="eyebrow">
+            <span className="eyebrowDot"></span> Primitives
+          </span>
           <h2 className={styles.sectionTitle}>Tabs</h2>
           <p className={styles.sectionDesc}>
             Controlled and uncontrolled tab navigation with ARIA roles.
@@ -633,6 +673,9 @@ const ShowcaseContent = memo(function ShowcaseContent() {
 
         {/* ── Select ────────────────────────────────── */}
         <section id="select" className={`${styles.showcaseSection} reveal`}>
+          <span className="eyebrow">
+            <span className="eyebrowDot"></span> Primitives
+          </span>
           <h2 className={styles.sectionTitle}>Select</h2>
           <p className={styles.sectionDesc}>
             Native select with custom styling, sizes, and chevron icon.
@@ -706,6 +749,9 @@ const ShowcaseContent = memo(function ShowcaseContent() {
 
         {/* ── Tooltip ───────────────────────────────── */}
         <section id="tooltip" className={`${styles.showcaseSection} reveal`}>
+          <span className="eyebrow">
+            <span className="eyebrowDot"></span> Primitives
+          </span>
           <h2 className={styles.sectionTitle}>Tooltip</h2>
           <p className={styles.sectionDesc}>
             Contextual hint on hover, wrapping{" "}
@@ -764,6 +810,9 @@ const ShowcaseContent = memo(function ShowcaseContent() {
 
         {/* ── Badge ─────────────────────────────────── */}
         <section id="badge" className={`${styles.showcaseSection} reveal`}>
+          <span className="eyebrow">
+            <span className="eyebrowDot"></span> Primitives
+          </span>
           <h2 className={styles.sectionTitle}>Badge</h2>
           <p className={styles.sectionDesc}>
             Status, priority, and default badge variants.
@@ -826,6 +875,9 @@ const ShowcaseContent = memo(function ShowcaseContent() {
 
         {/* ── Dialog ───────────────────────────────── */}
         <section id="dialog" className={`${styles.showcaseSection} reveal`}>
+          <span className="eyebrow">
+            <span className="eyebrowDot"></span> Primitives
+          </span>
           <h2 className={styles.sectionTitle}>Dialog</h2>
           <p className={styles.sectionDesc}>
             Modal overlay using native{" "}
@@ -981,6 +1033,9 @@ const ShowcaseContent = memo(function ShowcaseContent() {
 
         {/* ── FormField ─────────────────────────────── */}
         <section id="form-field" className={`${styles.showcaseSection} reveal`}>
+          <span className="eyebrow">
+            <span className="eyebrowDot"></span> Forms
+          </span>
           <h2 className={styles.sectionTitle}>FormField</h2>
           <p className={styles.sectionDesc}>
             Self-contained compound component with auto-generated IDs and a11y
@@ -1034,6 +1089,9 @@ const ShowcaseContent = memo(function ShowcaseContent() {
 
         {/* ── Table ─────────────────────────────────── */}
         <section id="table" className={`${styles.showcaseSection} reveal`}>
+          <span className="eyebrow">
+            <span className="eyebrowDot"></span> Data Display
+          </span>
           <h2 className={styles.sectionTitle}>Table</h2>
           <p className={styles.sectionDesc}>
             Composable data table with striped, bordered, and compact variants.
@@ -1113,6 +1171,9 @@ const ShowcaseContent = memo(function ShowcaseContent() {
 
         {/* ── Icon ──────────────────────────────────── */}
         <section id="icon" className={`${styles.showcaseSection} reveal`}>
+          <span className="eyebrow">
+            <span className="eyebrowDot"></span> Content
+          </span>
           <h2 className={styles.sectionTitle}>Icon</h2>
           <p className={styles.sectionDesc}>
             SVG sprite system with 4 sizes. Icons use{" "}
@@ -1201,6 +1262,9 @@ const ShowcaseContent = memo(function ShowcaseContent() {
 
         {/* ── Typography ────────────────────────────── */}
         <section id="typography" className={`${styles.showcaseSection} reveal`}>
+          <span className="eyebrow">
+            <span className="eyebrowDot"></span> Content
+          </span>
           <h2 className={styles.sectionTitle}>Typography</h2>
           <p className={styles.sectionDesc}>
             Type scale, weights, and font families — all token-driven.
@@ -1392,6 +1456,9 @@ const ShowcaseContent = memo(function ShowcaseContent() {
 
         {/* ── Separator ────────────────────────────── */}
         <section id="separator" className={`${styles.showcaseSection} reveal`}>
+          <span className="eyebrow">
+            <span className="eyebrowDot"></span> Content
+          </span>
           <h2 className={styles.sectionTitle}>Separator</h2>
           <p className={styles.sectionDesc}>
             Visual divider between content sections. Supports horizontal and
@@ -1460,6 +1527,9 @@ const ShowcaseContent = memo(function ShowcaseContent() {
 
         {/* ── Toggle ───────────────────────────────── */}
         <section id="toggle" className={`${styles.showcaseSection} reveal`}>
+          <span className="eyebrow">
+            <span className="eyebrowDot"></span> Primitives
+          </span>
           <h2 className={styles.sectionTitle}>Toggle</h2>
           <p className={styles.sectionDesc}>
             Two-state button with{" "}
@@ -1553,6 +1623,9 @@ const ShowcaseContent = memo(function ShowcaseContent() {
 
         {/* ── Switch ───────────────────────────────── */}
         <section id="switch" className={`${styles.showcaseSection} reveal`}>
+          <span className="eyebrow">
+            <span className="eyebrowDot"></span> Primitives
+          </span>
           <h2 className={styles.sectionTitle}>Switch</h2>
           <p className={styles.sectionDesc}>
             Toggle control with{" "}
@@ -1630,6 +1703,9 @@ const ShowcaseContent = memo(function ShowcaseContent() {
 
         {/* ── Menu ───────────────────────────────────── */}
         <section id="menu" className={`${styles.showcaseSection} reveal`}>
+          <span className="eyebrow">
+            <span className="eyebrowDot"></span> Navigation
+          </span>
           <h2 className={styles.sectionTitle}>Menu</h2>
           <p className={styles.sectionDesc}>
             Reusable menu primitive with arrow-key navigation, separators, and
@@ -1724,6 +1800,9 @@ const ShowcaseContent = memo(function ShowcaseContent() {
 
         {/* ── Shadows ───────────────────────────────── */}
         <section id="shadows" className={`${styles.showcaseSection} reveal`}>
+          <span className="eyebrow">
+            <span className="eyebrowDot"></span> Tokens
+          </span>
           <h2 className={styles.sectionTitle}>Shadows</h2>
           <p className={styles.sectionDesc}>
             Elevation scale from subtle to dramatic.
@@ -1751,6 +1830,9 @@ const ShowcaseContent = memo(function ShowcaseContent() {
 
         {/* ── Color Tokens ──────────────────────────── */}
         <section id="colors" className={`${styles.showcaseSection} reveal`}>
+          <span className="eyebrow">
+            <span className="eyebrowDot"></span> Tokens
+          </span>
           <h2 className={styles.sectionTitle}>Color Tokens</h2>
           <p className={styles.sectionDesc}>
             Semantic color system — primary, status, priority, and semantic
@@ -1974,6 +2056,9 @@ const ShowcaseContent = memo(function ShowcaseContent() {
 
         {/* ── Onboarding ──────────────────────────── */}
         <section id="onboarding" className={`${styles.showcaseSection} reveal`}>
+          <span className="eyebrow">
+            <span className="eyebrowDot"></span> Features
+          </span>
           <h2 className={styles.sectionTitle}>Onboarding Flow</h2>
           <p className={styles.sectionDesc}>
             Multi-step onboarding with Zustand state management, validation,
@@ -2014,7 +2099,10 @@ const ShowcaseContent = memo(function ShowcaseContent() {
               </li>
             </ul>
           </div>
-          <ComponentDocs doc={docsData.find((d) => d.name === "onboarding")!} />
+          {(() => {
+            const onboardingDoc = docsData.find((d) => d.name === "onboarding");
+            return onboardingDoc ? <ComponentDocs doc={onboardingDoc} /> : null;
+          })()}
         </section>
       </div>
     </div>
@@ -2035,11 +2123,6 @@ export default function Home() {
   useEffect(() => {
     const el = document.documentElement;
     el.classList.toggle("bw", bw);
-    if (bw) {
-      el.classList.add("light");
-    } else {
-      el.classList.remove("light");
-    }
   }, [bw]);
 
   const openPanel = useCallback((id: string) => {
@@ -2074,12 +2157,6 @@ export default function Home() {
                 {item.label}
               </SidebarItem>
             ))}
-            <SidebarItem
-              icon={<span>→</span>}
-              onClick={() => openPanel("onboarding")}
-            >
-              Onboarding
-            </SidebarItem>
           </SidebarGroup>
           <SidebarSeparator />
           <SidebarGroup label="Tokens">

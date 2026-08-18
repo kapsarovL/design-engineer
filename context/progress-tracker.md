@@ -61,6 +61,16 @@
 - [x] Onboarding store with validation, persistence (localStorage), navigation guards, progress tracking.
 - [x] Progress primitive component for step indicator.
 - [x] Onboarding showcase section added to page with live demo and code example.
+- [x] Plus Jakarta Sans font added to layout.tsx with --font-jakarta CSS variable. Metadata title/description updated.
+
+## High-End Visual Design Upgrade (Agency-Tier)
+
+- [x] tokens.scss — premium font stacks (Plus Jakarta Sans as body/heading), expanded radius tokens (2xl/3xl/squircle/pill), shadow tokens (depth/ambient/glow-primary/success/error/soft/bezel-outer/bezel-inner), spacing tokens (space-10 through space-24), transition tokens (spring/fluid).
+- [x] premium.scss — Z-Axis Cascade (zCascade/zCascadeLayer), Glass Overlay (glassOverlay), Staggered Nav Reveal (staggerReveal with 10 staggered delays), Pill Button patterns (pillBtn/pillBtnSecondary/pillBtnIconWrap with button-in-button trailing icon), Premium Input Double-Bezel (premiumInputWrapper/premiumInputInner), Micro-interaction Scale on Press (pressScale), Skeleton Shimmer (skeletonShimmer with @keyframes shimmer), Floating Label Animation (floatingLabel/floatingLabelActive), Glass Card (glassCard), Glow Badge (glowBadge/glowBadgePrimary/glowBadgeSuccess), Page Transition (pageTransition with @keyframes pageIn), Scroll Hint (scrollHint with @keyframes scrollBounce), Depth Card (depthCard).
+- [x] Button component — pill variant (rounded-full), magnetic hover physics (scale 0.98 hover / 0.96 active), button-in-button trailing icon with inner glow, premium spring transitions.
+- [x] Card component — double-bezel architecture (outer shell gradient + inner core), glass variant (backdrop-blur), elevated variant, depth shift on hover (translateY -2px), enhanced bezel shadows.
+- [x] Input component — double-bezel architecture (outer shell gradient + inner core), premium focus glow ring, error state with red glow, enhanced transitions.
+- [x] Main page — macro-whitespace (py-16 hero, py-10 sections), premium typography (Jakarta Sans heading at 3.25rem, refined letter-spacing), glow-pulse hero badge, premium section titles, pill-shaped block labels, enhanced component block spacing.
 
 ## In Progress / Next Steps
 

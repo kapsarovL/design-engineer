@@ -1,8 +1,23 @@
+/* ── Card (Double-Bezel Architecture) ──────────────── */
+
 .card {
-  background-color: var(--color-surface-card);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
+  position: relative;
+  padding: 5px;
+  border-radius: var(--radius-bezel);
+  background: linear-gradient(
+    145deg,
+    color-mix(in oklch, var(--color-border) 45%, transparent),
+    color-mix(in oklch, var(--color-border) 15%, transparent)
+  );
+  box-shadow: var(--shadow-bezel-outer);
+  transition: all var(--duration-normal) var(--ease-spring);
+}
+
+.card > * {
+  border-radius: var(--radius-bezel-inner);
+  background: var(--color-surface-card);
+  box-shadow: var(--shadow-bezel-inner);
+  overflow: hidden;
 }
 
 /* Header */
@@ -37,13 +52,35 @@
   gap: var(--space-2);
 }
 
-/* Hover elevation */
+/* Interactive (depth shift on hover) */
 .card--interactive {
   cursor: pointer;
-  transition: box-shadow var(--transition-fast), border-color var(--transition-fast);
 }
 
 .card--interactive:hover {
-  box-shadow: var(--shadow-md);
-  border-color: var(--color-border-hover);
+  box-shadow: var(--shadow-bezel-outer-hover);
+  transform: translateY(-2px);
+}
+
+/* ── Card Variants ────────────────────────────────── */
+
+.card--glass {
+  background: color-mix(in oklch, var(--color-surface-card) 70%, transparent);
+  backdrop-filter: blur(12px) saturate(1.1);
+  -webkit-backdrop-filter: blur(12px) saturate(1.1);
+  border: 1px solid color-mix(in oklch, var(--color-border) 50%, transparent);
+}
+
+.card--glass > * {
+  background: transparent;
+  box-shadow: none;
+}
+
+.card--elevated {
+  box-shadow: var(--shadow-depth);
+}
+
+.card--elevated:hover {
+  box-shadow: var(--shadow-depth);
+  transform: translateY(-4px);
 }

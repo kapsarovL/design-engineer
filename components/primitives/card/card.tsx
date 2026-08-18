@@ -5,10 +5,14 @@ import styles from "./card.module.scss";
 
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   interactive?: boolean;
+  glass?: boolean;
+  elevated?: boolean;
 }
 
 export function Card({
   interactive = false,
+  glass = false,
+  elevated = false,
   className,
   children,
   ref,
@@ -17,10 +21,18 @@ export function Card({
   return (
     <div
       ref={ref}
-      className={`${styles.card} ${interactive ? styles["card--interactive"] : ""} ${className ?? ""}`}
+      className={[
+        styles.card,
+        interactive && styles["card--interactive"],
+        glass && styles["card--glass"],
+        elevated && styles["card--elevated"],
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
       {...props}
     >
-      {children}
+      <div>{children}</div>
     </div>
   );
 }

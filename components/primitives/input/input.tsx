@@ -33,7 +33,9 @@ export function Input({
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.inputWrapper}>
+      <div
+        className={`${styles.inputWrapper} ${hasError ? styles.errorState : ""}`}
+      >
         {iconStart && <span className={styles.iconStart}>{iconStart}</span>}
         <input
           ref={ref}
