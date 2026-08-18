@@ -21,21 +21,27 @@
   padding: var(--space-2) var(--space-8) var(--space-2) var(--space-3);
   font-size: 0.875rem;
   color: var(--color-text);
-  background-color: var(--color-surface-primary);
+  background-color: var(--color-surface-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   cursor: pointer;
-  transition: border-color 150ms ease;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .select__native:hover {
-  border-color: var(--color-border-strong);
+  border-color: var(--color-border-hover);
 }
 
 .select__native:focus {
   outline: none;
-  border-color: var(--color-border-focus);
-  box-shadow: 0 0 0 2px var(--ring-color-focus);
+  border-color: var(--input-border-focus);
+  box-shadow: var(--shadow-focus);
+}
+
+.select__native:focus-visible {
+  outline: none;
+  border-color: var(--input-border-focus);
+  box-shadow: var(--shadow-focus);
 }
 
 .select__chevron {
@@ -48,10 +54,14 @@
 }
 
 /* Sizes */
-.select--small .select__native {
+.select--sm .select__native {
   height: 2rem;
 }
 
-.select--large .select__native {
+.select--md .select__native {
+  height: 2.25rem;
+}
+
+.select--lg .select__native {
   height: 2.5rem;
 }

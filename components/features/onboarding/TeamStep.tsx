@@ -114,7 +114,7 @@ export function TeamStep() {
             onChange={(e) => handleChange("teamSize", e.target.value)}
             onBlur={() => handleBlur("teamSize")}
             options={TEAM_SIZES}
-            size="large"
+            size="lg"
           />
         </div>
 

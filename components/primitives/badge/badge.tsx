@@ -23,5 +23,9 @@ export function Badge({
     .filter(Boolean)
     .join(" ");
 
-  return <span className={badgeClass}>{children}</span>;
+  return (
+    <span className={badgeClass} role="note">
+      {children}
+    </span>
+  );
 }

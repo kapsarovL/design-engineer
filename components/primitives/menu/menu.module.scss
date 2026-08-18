@@ -42,12 +42,12 @@
   }
 
   &[data-destructive] {
-    color: var(--color-status-error);
+    color: var(--color-error);
   }
 }
 
 .menu__item--destructive {
-  color: var(--color-status-error);
+  color: var(--color-error);
 }
 
 /* ── Separator ────────────────────────────────────── */

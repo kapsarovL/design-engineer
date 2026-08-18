@@ -686,7 +686,7 @@ const ShowcaseContent = memo(function ShowcaseContent() {
             <div className={styles.formRow}>
               <Select
                 label="Small"
-                size="small"
+                size="sm"
                 placeholder="Pick an option"
                 options={[
                   { value: "a", label: "Option A" },
@@ -696,7 +696,7 @@ const ShowcaseContent = memo(function ShowcaseContent() {
               />
               <Select
                 label="Large"
-                size="large"
+                size="lg"
                 placeholder="Pick an option"
                 options={[
                   { value: "x", label: "Choice X" },
@@ -707,10 +707,13 @@ const ShowcaseContent = memo(function ShowcaseContent() {
             </div>
             <div className={styles.measureTokens}>
               <span className={styles.measureToken}>
-                small: h-36px px-3 text-sm
+                sm: h-32px px-3 text-sm
               </span>
               <span className={styles.measureToken}>
-                large: h-40px px-4 text-base
+                md: h-36px px-3 text-sm (default)
+              </span>
+              <span className={styles.measureToken}>
+                lg: h-40px px-4 text-base
               </span>
               <span className={styles.measureToken}>radius: md</span>
             </div>
@@ -1373,7 +1376,7 @@ const ShowcaseContent = memo(function ShowcaseContent() {
               </span>
               <span className={styles.measureToken}>scale ratio: ~1.25</span>
               <span className={styles.measureToken}>
-                font: Inter (sans) · Geist Mono
+                font: Jakarta Sans (sans) · Geist Mono
               </span>
             </div>
           </div>
@@ -1436,7 +1439,7 @@ const ShowcaseContent = memo(function ShowcaseContent() {
                     fontSize: "var(--text-lg)",
                   }}
                 >
-                  Inter — The quick brown fox jumps over the lazy dog
+                  Jakarta Sans — The quick brown fox jumps over the lazy dog
                 </span>
               </div>
               <div className={styles.typeRow}>

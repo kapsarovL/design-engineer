@@ -100,7 +100,7 @@ export function ProfileStep() {
             onChange={(e) => handleChange("role", e.target.value)}
             onBlur={() => handleBlur("role")}
             options={ROLES}
-            size="large"
+            size="lg"
           />
         </div>
 

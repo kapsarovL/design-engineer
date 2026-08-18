@@ -32,7 +32,7 @@
 
 .logoIcon {
   font-size: 1.5rem;
-  background: linear-gradient(135deg, var(--color-primary), #6366f1);
+  background: linear-gradient(135deg, var(--color-primary), color-mix(in oklch, var(--color-primary) 60%, #818cf8));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -117,6 +117,11 @@
   cursor: not-allowed;
 }
 
+.actionBtn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
 .iconBtn {
   background: transparent;
   border: 1px solid var(--color-border);
@@ -136,6 +141,11 @@
   background-color: var(--color-surface);
   border-color: var(--color-border-hover);
   transform: rotate(15deg);
+}
+
+.iconBtn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 @media (max-width: 768px) {

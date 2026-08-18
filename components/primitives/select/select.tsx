@@ -14,14 +14,14 @@ interface SelectProps
   options: SelectOption[];
   placeholder?: string;
   label?: string;
-  size?: "small" | "large";
+  size?: "sm" | "md" | "lg";
 }
 
 export function Select({
   options,
   placeholder,
   label,
-  size = "small",
+  size = "md",
   className,
   id,
   ref,

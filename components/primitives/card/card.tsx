@@ -50,7 +50,7 @@ export function CardHeader({
   return (
     <div
       ref={ref}
-      className={`${styles.card__header} ${className ?? ""}`}
+      className={[styles.card__header, className].filter(Boolean).join(" ")}
       {...props}
     >
       {children}
@@ -71,7 +71,7 @@ export function CardTitle({
   return (
     <h3
       ref={ref}
-      className={`${styles.card__title} ${className ?? ""}`}
+      className={[styles.card__title, className].filter(Boolean).join(" ")}
       {...props}
     >
       {children}
@@ -93,7 +93,9 @@ export function CardDescription({
   return (
     <p
       ref={ref}
-      className={`${styles.card__description} ${className ?? ""}`}
+      className={[styles.card__description, className]
+        .filter(Boolean)
+        .join(" ")}
       {...props}
     >
       {children}
@@ -114,7 +116,7 @@ export function CardContent({
   return (
     <div
       ref={ref}
-      className={`${styles.card__content} ${className ?? ""}`}
+      className={[styles.card__content, className].filter(Boolean).join(" ")}
       {...props}
     >
       {children}
@@ -135,7 +137,7 @@ export function CardFooter({
   return (
     <div
       ref={ref}
-      className={`${styles.card__footer} ${className ?? ""}`}
+      className={[styles.card__footer, className].filter(Boolean).join(" ")}
       {...props}
     >
       {children}

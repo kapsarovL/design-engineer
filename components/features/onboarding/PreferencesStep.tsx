@@ -85,7 +85,7 @@ export function PreferencesStep() {
               onChange={(e) => handleChange("theme", e.target.value)}
               onBlur={() => handleBlur("theme")}
               options={THEME_OPTIONS}
-              size="large"
+              size="lg"
             />
           </div>
         </div>
@@ -119,7 +119,7 @@ export function PreferencesStep() {
               onChange={(e) => handleChange("digestFrequency", e.target.value)}
               onBlur={() => handleBlur("digestFrequency")}
               options={DIGEST_OPTIONS}
-              size="large"
+              size="lg"
             />
           </div>
         </div>
@@ -137,7 +137,7 @@ export function PreferencesStep() {
               onChange={(e) => handleChange("language", e.target.value)}
               onBlur={() => handleBlur("language")}
               options={LANGUAGE_OPTIONS}
-              size="large"
+              size="lg"
             />
           </div>
         </div>

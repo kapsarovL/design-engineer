@@ -1,3 +1,5 @@
+"use client";
+
 import type * as React from "react";
 import styles from "./toggle.module.scss";
 

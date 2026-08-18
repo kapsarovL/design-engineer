@@ -26,12 +26,18 @@
 
 .tabs__trigger[data-state="active"] {
   color: var(--color-text);
-  border-bottom-color: var(--color-border-strong);
+  border-bottom-color: var(--color-primary);
 }
 
 .tabs__trigger:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.tabs__trigger:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
+  border-radius: var(--radius-sm);
 }
 
 .tabs__icon {

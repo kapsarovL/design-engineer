@@ -56,7 +56,7 @@
 .priority.urgent {
   background-color: var(--color-priority-urgent-bg);
   color: var(--color-priority-urgent-text);
-  box-shadow: 0 0 0 1px rgba(225, 29, 72, 0.3);
+  box-shadow: 0 0 0 1px color-mix(in oklch, var(--color-error) 30%, transparent);
 }
 
 /* Default */

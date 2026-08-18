@@ -65,15 +65,15 @@
 }
 
 .statusOnline {
-  background-color: #30a14e;
+  background-color: var(--color-success);
 }
 
 .statusOffline {
-  background-color: #6e7681;
+  background-color: var(--color-text-muted);
 }
 
 .statusBusy {
-  background-color: #e5484d;
+  background-color: var(--color-error);
 }
 
 /* ── Status sizes ─────────────────────────────────── */

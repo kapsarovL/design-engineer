@@ -83,11 +83,11 @@
 }
 
 .destructive {
-  background-color: #e5484d;
+  background-color: var(--color-error);
   color: #fff;
 
   &:hover:not(:disabled) {
-    background-color: #dc3d43;
+    background-color: color-mix(in oklch, var(--color-error) 90%, #000);
     box-shadow: var(--shadow-glow-error);
   }
 
