@@ -2103,10 +2103,17 @@ const ShowcaseContent = memo(function ShowcaseContent() {
 export default function Home() {
   const [panelId, setPanelId] = useState<string | null>(null);
   const [bw, setBw] = useState(false);
+  const [dark, setDark] = useState(false);
 
   const toggleBw = useCallback(() => {
     startTransition(() => {
       setBw((prev) => !prev);
+    });
+  }, []);
+
+  const toggleTheme = useCallback(() => {
+    startTransition(() => {
+      setDark((prev) => !prev);
     });
   }, []);
 
@@ -2115,6 +2122,13 @@ export default function Home() {
     const el = document.documentElement;
     el.classList.toggle("bw", bw);
   }, [bw]);
+
+  /* Sync theme classes on <html> — activates tokens.scss .dark overrides */
+  useEffect(() => {
+    const el = document.documentElement;
+    el.classList.toggle("dark", dark);
+    el.classList.toggle("light", !dark);
+  }, [dark]);
 
   const openPanel = useCallback((id: string) => {
     startTransition(() => {
@@ -2182,6 +2196,14 @@ export default function Home() {
               alignItems: "center",
             }}
           >
+            <Button
+              variant={dark ? "primary" : "ghost"}
+              size="sm"
+              onClick={toggleTheme}
+              className="magneticBtn"
+            >
+              {dark ? "☀ Light" : "🌙 Dark"}
+            </Button>
             <Button
               variant={bw ? "primary" : "ghost"}
               size="sm"
