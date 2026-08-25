@@ -10,7 +10,11 @@ body {
     color var(--duration-fast) var(--ease-fluid);
 }
 
-/* Base custom scrollbars for table */
+/* Base custom scrollbars — standard (Firefox) then WebKit */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
