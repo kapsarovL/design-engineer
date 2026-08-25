@@ -7,15 +7,18 @@ interface HighlightedTextProps {
 }
 
 export function HighlightedText({ text, highlight }: HighlightedTextProps) {
-  if (!highlight || !highlight.trim()) return <>{text}</>;
+  const query = highlight?.trim();
+  if (!query) return <>{text}</>;
 
-  const regex = new RegExp(`(${highlight.trim()})`, "gi");
+  // Capturing group => split() places matches at odd indices.
+  // Avoids stateful regex.test() (lastIndex) misfires entirely.
+  const regex = new RegExp(`(${query})`, "gi");
   const parts = text.split(regex);
 
   return (
     <>
       {parts.map((part, i) =>
-        regex.test(part) ? (
+        i % 2 === 1 ? (
           <span key={i} className={styles.highlight}>
             {part}
           </span>

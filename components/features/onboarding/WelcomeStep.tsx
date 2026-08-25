@@ -1,8 +1,8 @@
 "use client";
 
-import { OnboardingStep } from "./OnboardingStep";
 import { Button } from "@/components/primitives/button/button";
 import { Icon } from "@/components/primitives/icon/icon";
+import { OnboardingStep } from "./OnboardingStep";
 import styles from "./WelcomeStep.module.scss";
 
 export function WelcomeStep() {

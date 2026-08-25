@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import type { ComponentDoc } from "./data";
 import styles from "./component-docs.module.scss";
+import type { ComponentDoc } from "./data";
 
 /* ── Inline docs block shown after each component's code ────── */
 

@@ -2,27 +2,51 @@
 
 import {
   memo,
+  startTransition,
   useCallback,
   useEffect,
   useRef,
   useState,
-  startTransition,
 } from "react";
-import { Avatar, AvatarGroup } from "@/components/primitives/avatar/avatar";
-import { Badge } from "@/components/primitives/badge/badge";
-import { Button } from "@/components/primitives/button/button";
+import { CodePanel } from "@/components/code-panel/code-panel";
 import { ComponentDocs } from "@/components/component-docs/component-docs";
 import { docsData } from "@/components/component-docs/data";
+import { OnboardingFlow } from "@/components/features/onboarding";
 import {
+  Avatar,
+  AvatarGroup,
+  Badge,
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+  DialogBody,
+  DialogClose,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
   FormField,
   FormFieldError,
   FormFieldHelper,
   FormFieldInput,
   FormFieldLabel,
-} from "@/components/primitives/form-field/form-field";
-import { Input } from "@/components/primitives/input/input";
-import { Label } from "@/components/primitives/label/label";
-import {
+  Icon,
+  Input,
+  Label,
+  Menu,
+  MenuGroup,
+  MenuItem,
+  MenuSeparator,
+  Select,
+  Separator,
   Sidebar,
   SidebarContent,
   SidebarFooter,
@@ -32,52 +56,17 @@ import {
   SidebarProvider,
   SidebarSeparator,
   SidebarTrigger,
-} from "@/components/primitives/sidebar/sidebar";
-import { Select } from "@/components/primitives/select/select";
-import {
+  Switch,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/primitives/table/table";
-import { Tabs } from "@/components/primitives/tabs/tabs";
-import { Tooltip } from "@/components/primitives/tooltip/tooltip";
-import {
-  DialogBody,
-  DialogClose,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/primitives/dialog/dialog";
-import { Icon } from "@/components/primitives/icon/icon";
-import { Separator } from "@/components/primitives/separator/separator";
-import { Toggle } from "@/components/primitives/toggle/toggle";
-import { Switch } from "@/components/primitives/switch/switch";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from "@/components/primitives/dropdown-menu/dropdown-menu";
-import {
-  Menu,
-  MenuItem,
-  MenuSeparator,
-  MenuGroup,
-} from "@/components/primitives/menu/menu";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from "@/components/primitives/card/card";
-import { OnboardingFlow } from "@/components/features/onboarding";
-import { CodePanel } from "@/components/code-panel/code-panel";
+  Tabs,
+  Toggle,
+  Tooltip,
+} from "@/components/primitives";
 import { codeExamples } from "./code-examples";
 import styles from "./variables.module.scss";
 
@@ -129,7 +118,7 @@ const demoRows = [
     status: "shipped" as const,
     variant: "Native <dialog> + compound parts",
   },
-  { name: "Tooltip", status: "shipped" as const, variant: "nextjs-components" },
+  { name: "Tooltip", status: "shipped" as const, variant: "Custom SCSS" },
   { name: "Select", status: "shipped" as const, variant: "Native select" },
   {
     name: "Switch",
@@ -757,9 +746,8 @@ const ShowcaseContent = memo(function ShowcaseContent() {
           </span>
           <h2 className={styles.sectionTitle}>Tooltip</h2>
           <p className={styles.sectionDesc}>
-            Contextual hint on hover, wrapping{" "}
-            <code className={styles.inlineCode}>nextjs-components</code> via
-            deep import.
+            Contextual hint on hover or focus, built as a self-contained SCSS
+            primitive with configurable delay and positioning.
           </p>
 
           <div className={styles.componentBlock}>

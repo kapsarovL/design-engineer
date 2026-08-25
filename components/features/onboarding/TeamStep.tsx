@@ -1,19 +1,19 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { OnboardingStep } from "./OnboardingStep";
+import { Button } from "@/components/primitives/button/button";
 import {
   FormField,
-  FormFieldLabel,
-  FormFieldInput,
   FormFieldHelper,
+  FormFieldInput,
+  FormFieldLabel,
 } from "@/components/primitives/form-field/form-field";
-import { Select } from "@/components/primitives/select/select";
-import { Button } from "@/components/primitives/button/button";
 import { Icon } from "@/components/primitives/icon/icon";
-import { Tag } from "@/components/primitives/tag/tag";
 import { Input } from "@/components/primitives/input/input";
-import { useOnboardingStore, selectTeamData } from "./store";
+import { Select } from "@/components/primitives/select/select";
+import { Tag } from "@/components/primitives/tag/tag";
+import { OnboardingStep } from "./OnboardingStep";
+import { selectTeamData, useOnboardingStore } from "./store";
 import styles from "./TeamStep.module.scss";
 
 const TEAM_SIZES = [

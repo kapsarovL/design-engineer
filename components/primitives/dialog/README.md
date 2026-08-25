@@ -1,17 +1,16 @@
 # Dialog
 
-Modal overlay for focused interactions. Built on the native `<dialog>` element with custom styling.
+Modal dialog built on the native `<dialog>` element with custom styling and compound parts for header, title, body, description, footer, and a close control.
 
 ## Import
 
 ```tsx
 import {
   Dialog,
-  DialogTrigger,
-  DialogContent,
+  DialogHeader,
   DialogTitle,
-  DialogDescription,
   DialogBody,
+  DialogDescription,
   DialogFooter,
   DialogClose,
 } from "@/components/primitives/dialog/dialog";
@@ -23,75 +22,64 @@ import {
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `open` | `boolean` | — | Controlled open state. |
-| `onOpenChange` | `(open: boolean) => void` | — | Called when open state changes. |
+| `isOpen` | `boolean` | — | Controlled open state. |
+| `onClose` | `() => void` | — | Called when the dialog requests to close. |
+| `className` | `string` | — | Additional CSS class. |
 | `children` | `React.ReactNode` | — | Dialog composition. |
 
-### DialogContent
+### DialogHeader, DialogTitle, DialogBody, DialogDescription, DialogFooter
+
+All accept `className`, `children`, and native HTML attributes. `DialogTitle` renders an `<h2>`, `DialogDescription` renders a `<p>`.
+
+### DialogClose
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
+| `asChild` | `boolean` | `false` | Renders as the child element via `React.cloneElement` (e.g. `<Button>`). |
 | `className` | `string` | — | Additional CSS class. |
-| `children` | `React.ReactNode` | — | Content inside the dialog panel. |
-
-### DialogTrigger
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `children` | `React.ReactNode` | — | Trigger element. |
-
-### DialogTitle, DialogDescription, DialogBody, DialogFooter, DialogClose
-
-All accept `className`, `children`, and native HTML attributes.
+| `children` | `React.ReactNode` | `"Close"` | Close control content. |
 
 ## Examples
 
 ### Basic
 
 ```tsx
-<Dialog>
-  <DialogTrigger>
-    <Button>Open dialog</Button>
-  </DialogTrigger>
-  <DialogContent>
+<Dialog isOpen={open} onClose={() => setOpen(false)}>
+  <DialogHeader>
     <DialogTitle>Confirm action</DialogTitle>
     <DialogDescription>
       Are you sure you want to proceed?
     </DialogDescription>
-    <DialogFooter>
-      <DialogClose asChild>
-        <Button variant="ghost">Cancel</Button>
-      </DialogClose>
-      <Button variant="danger">Confirm</Button>
-    </DialogFooter>
-  </DialogContent>
+  </DialogHeader>
+  <DialogBody>
+    <p>This cannot be undone.</p>
+  </DialogBody>
+  <DialogFooter>
+    <DialogClose>Cancel</DialogClose>
+    <Button variant="destructive">Delete</Button>
+  </DialogFooter>
 </Dialog>
 ```
 
-### Controlled
+### Close with a custom trigger (asChild)
 
 ```tsx
-const [open, setOpen] = useState(false);
-
-<Button onClick={() => setOpen(true)}>Open</Button>
-<Dialog open={open} onOpenChange={setOpen}>
-  <DialogContent>
-    <DialogTitle>Controlled dialog</DialogTitle>
-    <DialogBody>
-      <p>This dialog's state is managed externally.</p>
-    </DialogBody>
-  </DialogContent>
-</Dialog>
+<DialogFooter>
+  <DialogClose asChild>
+    <Button variant="ghost">Cancel</Button>
+  </DialogClose>
+  <Button variant="primary" onClick={confirm}>Confirm</Button>
+</DialogFooter>
 ```
 
 ## Accessibility
 
-- Uses native `<dialog>` element — provides built-in `aria-modal`, focus trapping, and Escape handling.
-- `DialogTitle` is required — renders as `<h2>` inside the dialog.
-- `DialogDescription` links via `aria-describedby` for screen reader context.
+- Uses the native `<dialog>` element — provides built-in `aria-modal`, focus trapping, and Escape handling.
+- `DialogTitle` is required for screen reader context.
+- `DialogDescription` links via `aria-describedby`.
 - Focus is trapped within the dialog when open.
-- Clicking the backdrop closes the dialog (via native dialog behavior).
-- `DialogClose` provides an explicit close button.
+- Clicking the backdrop closes the dialog via native `<dialog>` behavior.
+- `DialogClose` provides an explicit close control.
 
 ## Keyboard
 

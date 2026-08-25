@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "./dialog.module.scss";
 
 /* ── Root ─────────────────────────────────────────── */
@@ -144,18 +144,25 @@ export function DialogFooter({
 export function DialogClose({
   className,
   children = "Close",
+  asChild = false,
   ref,
   ...props
 }: React.ButtonHTMLAttributes<HTMLButtonElement> & {
   ref?: React.Ref<HTMLButtonElement>;
+  asChild?: boolean;
 }) {
+  const classes = `${styles.dialog__close} ${className ?? ""}`.trim();
+
+  if (asChild && React.isValidElement(children)) {
+    const child = children as React.ReactElement<{ className?: string }>;
+    return React.cloneElement(child, {
+      className: `${classes} ${child.props.className ?? ""}`.trim(),
+      ...props,
+    } as Record<string, unknown>);
+  }
+
   return (
-    <button
-      ref={ref}
-      type="button"
-      className={`${styles.dialog__close} ${className ?? ""}`}
-      {...props}
-    >
+    <button ref={ref} type="button" className={classes} {...props}>
       {children}
     </button>
   );

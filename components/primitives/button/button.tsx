@@ -1,4 +1,4 @@
-import type React from "react";
+import React from "react";
 import styles from "./button.module.scss";
 
 type ButtonVariant = "primary" | "secondary" | "ghost" | "destructive";
@@ -13,6 +13,7 @@ export interface ButtonProps
   icon?: React.ReactNode;
   iconPosition?: "start" | "end";
   trailingIcon?: React.ReactNode;
+  asChild?: boolean;
   ref?: React.Ref<HTMLButtonElement>;
 }
 
@@ -24,6 +25,7 @@ export function Button({
   icon,
   iconPosition = "start",
   trailingIcon,
+  asChild = false,
   className,
   disabled,
   children,
@@ -32,19 +34,29 @@ export function Button({
 }: ButtonProps) {
   const isIconOnly = icon && !children && !trailingIcon;
 
+  const classes = [
+    styles.button,
+    styles[variant],
+    styles[size],
+    pill && styles.pill,
+    isIconOnly && styles.iconOnly,
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  if (asChild && React.isValidElement(children)) {
+    const child = children as React.ReactElement<{ className?: string }>;
+    return React.cloneElement(child, {
+      className: `${classes} ${child.props.className ?? ""}`.trim(),
+      ...props,
+    } as Record<string, unknown>);
+  }
+
   return (
     <button
       ref={ref}
-      className={[
-        styles.button,
-        styles[variant],
-        styles[size],
-        pill && styles.pill,
-        isIconOnly && styles.iconOnly,
-        className,
-      ]
-        .filter(Boolean)
-        .join(" ")}
+      className={classes}
       disabled={disabled || loading}
       data-loading={loading ? "" : undefined}
       {...props}

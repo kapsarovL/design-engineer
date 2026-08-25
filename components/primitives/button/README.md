@@ -12,9 +12,9 @@ import { Button } from "@/components/primitives/button/button";
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `variant` | `"primary" \| "secondary" \| "danger" \| "ghost" \| "link"` | `"primary"` | Visual style. |
+| `variant` | `"primary" \| "secondary" \| "ghost" \| "destructive"` | `"primary"` | Visual style. |
 | `size` | `"sm" \| "md" \| "lg"` | `"md"` | Touch target and text size. |
-| `asChild` | `boolean` | `false` | Renders as child element via `Slot` (e.g. `<Link>`). |
+| `asChild` | `boolean` | `false` | Renders as the child element via `React.cloneElement` (e.g. `<Link>`). |
 | `disabled` | `boolean` | `false` | Disables interaction. |
 | `className` | `string` | — | Additional CSS class. |
 | `children` | `React.ReactNode` | — | Button content. |
@@ -29,9 +29,8 @@ Plus all native `<button>` attributes.
 ```tsx
 <Button variant="primary">Save</Button>
 <Button variant="secondary">Cancel</Button>
-<Button variant="danger">Delete</Button>
+<Button variant="destructive">Delete</Button>
 <Button variant="ghost">Dismiss</Button>
-<Button variant="link">Learn more</Button>
 ```
 
 ### Sizes
@@ -50,7 +49,7 @@ Plus all native `<button>` attributes.
   Add item
 </Button>
 
-<Button variant="danger">
+<Button variant="destructive">
   Delete
   <Icon name="trash" size="sm" />
 </Button>

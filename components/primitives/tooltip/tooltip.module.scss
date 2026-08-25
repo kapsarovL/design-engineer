@@ -1,29 +1,68 @@
-.trigger {
+.wrapper {
   display: inline-flex;
+  position: relative;
 }
 
 .trigger:focus-visible {
-  box-shadow: 0 0 0 2px var(--color-ring, var(--color-primary));
+  outline: 2px solid var(--color-ring, var(--color-primary));
+  outline-offset: 2px;
   border-radius: var(--radius-xs);
 }
 
 .popup {
-  --geist-foreground: var(--color-tooltip-text);
-  --geist-background: var(--color-tooltip-bg);
-  --shadow-medium: var(--shadow-md);
-  --dropdown-triangle-stroke: var(--color-tooltip-bg);
-  --geist-focus: 0 0 0 2px var(--color-tooltip-bg);
-
+  position: absolute;
+  z-index: 50;
+  max-width: 16rem;
+  padding: 0.375rem 0.625rem;
+  border-radius: var(--radius-sm);
+  background: var(--color-tooltip-bg);
   color: var(--color-tooltip-text);
   font-size: 0.75rem;
   font-weight: 500;
   line-height: 1.5;
-  border-radius: var(--radius-sm);
-  padding: 0.375rem 0.625rem;
+  white-space: nowrap;
+  box-shadow: var(--shadow-md, 0 4px 12px rgba(0, 0, 0, 0.15));
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 120ms ease,
+    visibility 120ms ease;
+  transition-delay: var(--tooltip-delay, 0ms);
+}
+
+.wrapper:hover .popup,
+.wrapper:focus-within .popup {
+  opacity: 1;
+  visibility: visible;
+}
+
+.popup--top {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-0.5rem);
+}
+
+.popup--bottom {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(0.5rem);
+}
+
+.popup--left {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%) translateX(-0.5rem);
+}
+
+.popup--right {
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%) translateX(0.5rem);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .popup {
-    animation: none;
+    transition: none;
   }
 }

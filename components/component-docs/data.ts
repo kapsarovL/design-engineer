@@ -23,7 +23,7 @@ export const docsData: ComponentDoc[] = [
       },
       {
         name: "size",
-        type: '"sm" | "md" | "lg" | "icon"',
+        type: '"sm" | "md" | "lg"',
         default: '"md"',
         description: "Button size",
       },
@@ -339,7 +339,7 @@ export const docsData: ComponentDoc[] = [
       {
         name: "delay",
         type: "number",
-        default: "200",
+        default: "150",
         description: "Delay in ms before showing",
       },
       {
@@ -443,16 +443,16 @@ export const docsData: ComponentDoc[] = [
     importPath: "@/components/primitives/dialog/dialog",
     props: [
       {
-        name: "open",
+        name: "isOpen",
         type: "boolean",
         default: "—",
         description: "Controlled open state",
       },
       {
-        name: "onOpenChange",
-        type: "(open: boolean) => void",
+        name: "onClose",
+        type: "() => void",
         default: "—",
-        description: "Callback when open state changes",
+        description: "Callback when the dialog requests to close",
       },
       {
         name: "children",
@@ -465,7 +465,7 @@ export const docsData: ComponentDoc[] = [
     examples: [
       {
         label: "Basic",
-        code: `<Dialog open={open} onOpenChange={setOpen}>\n  <DialogTitle>Confirm</DialogTitle>\n  <DialogBody>\n    <p>Are you sure?</p>\n  </DialogBody>\n  <DialogFooter>\n    <DialogClose>Close</DialogClose>\n  </DialogFooter>\n</Dialog>`,
+        code: `<Dialog isOpen={open} onClose={() => setOpen(false)}>\n  <DialogTitle>Confirm</DialogTitle>\n  <DialogBody>\n    <p>Are you sure?</p>\n  </DialogBody>\n  <DialogFooter>\n    <DialogClose>Close</DialogClose>\n  </DialogFooter>\n</Dialog>`,
       },
     ],
     accessibility: [

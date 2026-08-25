@@ -1,19 +1,19 @@
 "use client";
 
 import { useCallback } from "react";
-import { OnboardingStep } from "./OnboardingStep";
+import { Button } from "@/components/primitives/button/button";
 import {
   FormField,
-  FormFieldLabel,
-  FormFieldInput,
-  FormFieldTextarea,
   FormFieldHelper,
+  FormFieldInput,
+  FormFieldLabel,
+  FormFieldTextarea,
 } from "@/components/primitives/form-field/form-field";
-import { Select } from "@/components/primitives/select/select";
-import { Button } from "@/components/primitives/button/button";
 import { Icon } from "@/components/primitives/icon/icon";
-import { useOnboardingStore, selectProfileData } from "./store";
+import { Select } from "@/components/primitives/select/select";
+import { OnboardingStep } from "./OnboardingStep";
 import styles from "./ProfileStep.module.scss";
+import { selectProfileData, useOnboardingStore } from "./store";
 
 const ROLES = [
   { value: "designer", label: "Designer" },

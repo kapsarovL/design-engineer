@@ -1,13 +1,13 @@
 "use client";
 
 import { useCallback } from "react";
-import { OnboardingStep } from "./OnboardingStep";
-import { Select } from "@/components/primitives/select/select";
-import { Switch } from "@/components/primitives/switch/switch";
 import { Button } from "@/components/primitives/button/button";
 import { Icon } from "@/components/primitives/icon/icon";
-import { useOnboardingStore, selectPreferencesData } from "./store";
+import { Select } from "@/components/primitives/select/select";
+import { Switch } from "@/components/primitives/switch/switch";
+import { OnboardingStep } from "./OnboardingStep";
 import styles from "./PreferencesStep.module.scss";
+import { selectPreferencesData, useOnboardingStore } from "./store";
 
 const THEME_OPTIONS = [
   { value: "light", label: "Light" },

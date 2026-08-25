@@ -62,6 +62,12 @@
 - [x] Progress primitive component for step indicator.
 - [x] Onboarding showcase section added to page with live demo and code example.
 - [x] Plus Jakarta Sans font added to layout.tsx with --font-jakarta CSS variable. Metadata title/description updated.
+- [x] Removed `nextjs-components` dependency — Tooltip re-implemented as a self-contained SCSS primitive; `transpilePackages` and Astro `ssr.external` cleaned up.
+- [x] Removed dead `express` (and `@types/express`) dependency — no server entrypoint exists.
+- [x] Added top-level design-system barrel `components/primitives/index.ts`; colocated primitive `index.ts` files re-export their parts.
+- [x] Implemented `asChild` on `Button` and `DialogClose` (React.cloneElement) for polymorphic rendering.
+- [x] Reconciled README drift: `button` variant naming (`destructive`, not `danger`/`link`); `dialog` README rewritten to the real native `<dialog>` compound API; `component-docs/data.ts` dialog + button entries corrected (`isOpen`/`onClose`).
+- [x] Reconciled `context/project-overview.md` and `context/architecture.md` to the actual single-app, no-monorepo, no-Tailwind structure; DB/Drizzle/Zod/Neon marked as planned, not wired.
 
 ## High-End Visual Design Upgrade (Agency-Tier)
 
@@ -78,6 +84,6 @@
 
 ## Notes
 
-- `nextjs-components` barrel import causes missing `@react-stately/datepicker` build error + 319 tsc errors. Deep-importing individual submodules avoids this. However, most submodule sources (Modal, Menu, Tabs) have internal type errors (implicit `any`, untyped params). Implemented Dialog, Tabs, Select, DropdownMenu as local components to avoid these issues.
-- Tooltip is the only component that wraps `nextjs-components` (deep import). All other primitives are local.
-- Context files (`context/*.md`) describe a monorepo (`apps/web`, `packages/ui`) with Feature-Sliced Design (`src/features/`) — actual project is flat with `components/primitives/` as the design system. Context is aspirational.
+- `nextjs-components` was removed entirely: Tooltip is now a self-contained SCSS primitive (no external component dependency). `transpilePackages` and the Astro `ssr.external` entry were also removed. No third-party component library remains.
+- Context files (`context/*.md`) previously described a monorepo (`apps/web`, `packages/ui`) with Feature-Sliced Design and a published UI package. That was aspirational and has been reconciled to the actual single-app, colocated structure. The DB/Drizzle/Zod/Neon stack is documented as planned, not yet wired.
+- Dead dependency `express` (and `@types/express`) was removed — no server entrypoint exists in the project.

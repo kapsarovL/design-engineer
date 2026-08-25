@@ -1,7 +1,7 @@
-import { defineConfig } from "astro/config";
-import react from "@astrojs/react";
-import mdx from "@astrojs/mdx";
 import { resolve } from "node:path";
+import mdx from "@astrojs/mdx";
+import react from "@astrojs/react";
+import { defineConfig } from "astro/config";
 
 const componentsDir = resolve(import.meta.dirname, "../components");
 
@@ -22,7 +22,7 @@ export default defineConfig({
       },
     },
     ssr: {
-      external: ["nextjs-components"],
+      external: [],
     },
   },
 });

@@ -1,16 +1,16 @@
 "use client";
 
 import { useMemo } from "react";
-import { Progress } from "@/components/primitives/progress";
-import { WelcomeStep } from "./WelcomeStep";
-import { ProfileStep } from "./ProfileStep";
-import { PreferencesStep } from "./PreferencesStep";
-import { TeamStep } from "./TeamStep";
-import { CompleteStep } from "./CompleteStep";
 import { Button } from "@/components/primitives/button/button";
 import { Icon } from "@/components/primitives/icon/icon";
-import { useOnboardingStore, STEP_ORDER, STEP_LABELS } from "./store";
+import { Progress } from "@/components/primitives/progress";
+import { CompleteStep } from "./CompleteStep";
 import styles from "./OnboardingFlow.module.scss";
+import { PreferencesStep } from "./PreferencesStep";
+import { ProfileStep } from "./ProfileStep";
+import { STEP_LABELS, STEP_ORDER, useOnboardingStore } from "./store";
+import { TeamStep } from "./TeamStep";
+import { WelcomeStep } from "./WelcomeStep";
 
 const stepComponents = {
   welcome: WelcomeStep,

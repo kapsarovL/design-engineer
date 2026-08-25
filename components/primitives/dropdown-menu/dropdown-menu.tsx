@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Menu } from "../menu/menu";
-import { MenuItem } from "../menu/menu";
+import { Menu, MenuItem } from "../menu/menu";
 import styles from "./dropdown-menu.module.scss";
 
 /* ── Context ──────────────────────────────────────── */

@@ -1,15 +1,15 @@
 "use client";
 
-import { OnboardingStep } from "./OnboardingStep";
 import { Button } from "@/components/primitives/button/button";
 import { Icon } from "@/components/primitives/icon/icon";
-import {
-  useOnboardingStore,
-  selectProfileData,
-  selectPreferencesData,
-  selectTeamData,
-} from "./store";
 import styles from "./CompleteStep.module.scss";
+import { OnboardingStep } from "./OnboardingStep";
+import {
+  selectPreferencesData,
+  selectProfileData,
+  selectTeamData,
+  useOnboardingStore,
+} from "./store";
 
 export function CompleteStep() {
   const { resetOnboarding } = useOnboardingStore();

@@ -1,18 +1,18 @@
+export { CompleteStep } from "./CompleteStep";
 export { OnboardingFlow } from "./OnboardingFlow";
 export { OnboardingStep } from "./OnboardingStep";
-export { WelcomeStep } from "./WelcomeStep";
-export { ProfileStep } from "./ProfileStep";
 export { PreferencesStep } from "./PreferencesStep";
-export { TeamStep } from "./TeamStep";
-export { CompleteStep } from "./CompleteStep";
+export { ProfileStep } from "./ProfileStep";
 export {
-  useOnboardingStore,
-  STEP_ORDER,
-  STEP_LABELS,
-  type OnboardingStep as OnboardingStepType,
-  type ProfileData,
-  type PreferencesData,
-  type TeamData,
   type OnboardingData,
   type OnboardingState,
+  type OnboardingStep as OnboardingStepType,
+  type PreferencesData,
+  type ProfileData,
+  STEP_LABELS,
+  STEP_ORDER,
+  type TeamData,
+  useOnboardingStore,
 } from "./store";
+export { TeamStep } from "./TeamStep";
+export { WelcomeStep } from "./WelcomeStep";

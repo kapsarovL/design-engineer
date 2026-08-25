@@ -1,5 +1,6 @@
 "use client";
 
+import type React from "react";
 import {
   createContext,
   useCallback,
@@ -8,7 +9,6 @@ import {
   useRef,
   useState,
 } from "react";
-import type React from "react";
 import styles from "./menu.module.scss";
 
 /* ── Context ──────────────────────────────────────── */

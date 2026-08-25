@@ -1,9 +1,10 @@
 # Architecture Decisions
 
-## Monorepo Setup
+## Project Structure
 
-- Code is divided between standalone packages (`@prismaflux/design-system`) and applications (`apps/web`) to enforce decoupling.
-- Changesets is used for versioning and publishing the UI package.
+- Single Next.js application at the repo root. The design system lives in `components/primitives/` as colocated, framework-coupled components — it is **not** a separately published package.
+- A pnpm workspace contains only the `docs` site (`docs/`), which imports the live component source and `styles/tokens.scss` to render documentation.
+- **No monorepo** (`packages/ui` / `apps/web`), **no** `tsup` build, and **no** Changesets versioning.
 
 ## State Management & Data Flow
 
@@ -11,7 +12,12 @@
 - **Client State:** Zustand used strictly for transient, complex client-side workflows (e.g., multi-step forms).
 - **URL State:** Prefer URL Search Params for shareable, persistent UI state over global stores.
 
-## Database & ORM
+## Styling
 
-- Drizzle ORM acts as the single source of truth for the database schema.
-- Drizzle-Zod is used to automatically derive validation schemas from Postgres tables, ensuring frontend validation and database constraints never drift.
+- SCSS Modules per component + global design tokens in `styles/tokens.scss`. **No Tailwind.**
+- Tokens are CSS custom properties (light theme, plus `.dark` and `prefers-color-scheme` overrides).
+
+## Database & ORM (PLANNED — not yet implemented)
+
+- **Intended:** Drizzle ORM as the single source of truth for the database schema, with drizzle-zod deriving validation schemas from Postgres tables so frontend validation and DB constraints never drift.
+- **Current status:** not installed or wired. No DB client, schema, or migration exists in the repo yet.

@@ -1,9 +1,9 @@
 export {
   Dialog,
-  DialogHeader,
-  DialogTitle,
   DialogBody,
+  DialogClose,
   DialogDescription,
   DialogFooter,
-  DialogClose,
+  DialogHeader,
+  DialogTitle,
 } from "./dialog";
