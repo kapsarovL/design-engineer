@@ -5,6 +5,8 @@ import { defineConfig } from "astro/config";
 
 const componentsDir = resolve(import.meta.dirname, "../components");
 
+const tokensPath = resolve(import.meta.dirname, "../styles/tokens.scss").replace(/\\/g, "/");
+
 export default defineConfig({
   integrations: [react(), mdx()],
   vite: {
@@ -16,7 +18,12 @@ export default defineConfig({
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@use "${resolve(import.meta.dirname, "../styles/tokens.scss").replace(/\\/g, "/")}" as *;\n`,
+          // Inject token variables into every SCSS unit, EXCEPT tokens.scss
+          // itself - prepending its own path there causes a Sass module loop.
+          additionalData: (source, id) =>
+            id.replace(/\\/g, "/").endsWith("/styles/tokens.scss")
+              ? source
+              : `@use "${tokensPath}" as *;\n${source}`,
           api: "modern-compiler",
         },
       },
