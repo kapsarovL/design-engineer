@@ -3,9 +3,10 @@ import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import { defineConfig } from "astro/config";
 
-const componentsDir = resolve(import.meta.dirname, "../components");
-
-const tokensPath = resolve(import.meta.dirname, "../styles/tokens.scss").replace(/\\/g, "/");
+const tokensPath = resolve(
+  import.meta.dirname,
+  "../styles/tokens.scss",
+).replace(/\\/g, "/");
 
 export default defineConfig({
   integrations: [react(), mdx()],

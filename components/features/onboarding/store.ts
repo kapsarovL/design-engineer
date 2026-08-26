@@ -169,7 +169,7 @@ const validateTeam = (data: unknown): Record<string, string> => {
 };
 
 const validators: Partial<
-  Record<OnboardingStep, (data: any) => Record<string, string>>
+  Record<OnboardingStep, (data: unknown) => Record<string, string>>
 > = {
   profile: validateProfile,
   preferences: validatePreferences,

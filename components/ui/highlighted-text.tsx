@@ -19,11 +19,11 @@ export function HighlightedText({ text, highlight }: HighlightedTextProps) {
     <>
       {parts.map((part, i) =>
         i % 2 === 1 ? (
-          <span key={i} className={styles.highlight}>
+          <span key={part} className={styles.highlight}>
             {part}
           </span>
         ) : (
-          <React.Fragment key={i}>{part}</React.Fragment>
+          <React.Fragment key={part}>{part}</React.Fragment>
         ),
       )}
     </>
