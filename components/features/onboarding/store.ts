@@ -139,33 +139,32 @@ const INITIAL_STATE: Omit<
 
 /* ── Validation Helpers ──────────────────────────────────────────────── */
 
-const validateProfile = (
-  data: Partial<ProfileData>,
-): Record<string, string> => {
+const validateProfile = (data: unknown): Record<string, string> => {
+  const d = data as Partial<ProfileData>;
   const errors: Record<string, string> = {};
-  if (!data.fullName?.trim()) errors.fullName = "Full name is required";
-  if (!data.email?.trim()) {
+  if (!d.fullName?.trim()) errors.fullName = "Full name is required";
+  if (!d.email?.trim()) {
     errors.email = "Email is required";
-  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) {
     errors.email = "Invalid email format";
   }
-  if (!data.role?.trim()) errors.role = "Role is required";
+  if (!d.role?.trim()) errors.role = "Role is required";
   return errors;
 };
 
-const validatePreferences = (
-  data: Partial<PreferencesData>,
-): Record<string, string> => {
+const validatePreferences = (data: unknown): Record<string, string> => {
+  const d = data as Partial<PreferencesData>;
   const errors: Record<string, string> = {};
-  if (!data.theme) errors.theme = "Theme is required";
-  if (!data.language?.trim()) errors.language = "Language is required";
+  if (!d.theme) errors.theme = "Theme is required";
+  if (!d.language?.trim()) errors.language = "Language is required";
   return errors;
 };
 
-const validateTeam = (data: Partial<TeamData>): Record<string, string> => {
+const validateTeam = (data: unknown): Record<string, string> => {
+  const d = data as Partial<TeamData>;
   const errors: Record<string, string> = {};
-  if (!data.teamName?.trim()) errors.teamName = "Team name is required";
-  if (!data.teamSize) errors.teamSize = "Team size is required";
+  if (!d.teamName?.trim()) errors.teamName = "Team name is required";
+  if (!d.teamSize) errors.teamSize = "Team size is required";
   return errors;
 };
 

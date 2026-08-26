@@ -43,16 +43,21 @@ Plus all native `<button>` attributes.
 
 ### With icons
 
+Use the `icon` prop for a leading icon, or `trailingIcon` for one after the label. A button with no label becomes icon-only automatically.
+
 ```tsx
-<Button>
-  <Icon name="plus" size="sm" />
-  Add item
+<Button icon={<Icon name="plus" size="sm" />}>Add item</Button>
+
+<Button variant="destructive" icon={<Icon name="trash" size="sm" />} iconPosition="end">
+  Delete
 </Button>
 
-<Button variant="destructive">
-  Delete
-  <Icon name="trash" size="sm" />
-</Button>
+<Button trailingIcon={<Icon name="arrow-right" size="sm" />}>Continue</Button>
+
+<Button pill>Primary</Button>
+
+{/* Icon-only needs an accessible name */}
+<Button aria-label="Add" icon={<Icon name="plus" size="sm" />} />
 ```
 
 ### Loading state
@@ -86,6 +91,7 @@ import Link from "next/link";
 ## Accessibility
 
 - Native `<button>` element — keyboard and screen reader accessible by default.
+- A native button defaults to `type="submit"` — set `type="button"` for actions that are not form submits.
 - `disabled` attribute prevents interaction and communicates state to assistive tech.
 - Loading state uses `data-loading` attribute — add `aria-busy="true"` and `aria-live="polite"` if the action is long-running.
 - Icon-only buttons must have `aria-label`:

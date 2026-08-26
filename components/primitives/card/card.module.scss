@@ -2,7 +2,7 @@
 
 .card {
   position: relative;
-  padding: 5px;
+  padding: var(--space-1);
   border-radius: var(--radius-bezel);
   background: linear-gradient(
     145deg,
@@ -26,15 +26,16 @@
 }
 
 .card__title {
-  font-size: 1.125rem;
-  font-weight: 600;
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
   line-height: 1.4;
   color: var(--color-text);
 }
 
 .card__description {
-  margin-top: var(--space-1);
-  font-size: 0.875rem;
+  margin-top: var(--space-3);
+  font-size: var(--text-sm-loose);
   color: var(--color-text-muted);
   line-height: 1.5;
 }

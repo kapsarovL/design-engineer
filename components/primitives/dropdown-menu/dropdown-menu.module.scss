@@ -32,3 +32,13 @@
 .dropdown__menu {
   min-width: 12rem;
 }
+
+.dropdown__trigger:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+.dropdown__menu :focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}

@@ -1,6 +1,7 @@
 "use client";
 
 import type React from "react";
+import { useState } from "react";
 import styles from "./switch.module.scss";
 
 type SwitchSize = "sm" | "md" | "lg";
@@ -27,12 +28,15 @@ export function Switch({
   ref,
   ...props
 }: SwitchProps) {
+  const [internalChecked, setInternalChecked] = useState(defaultChecked);
   const isControlled = checked !== undefined;
-  const isChecked = isControlled ? checked : defaultChecked;
+  const isChecked = isControlled ? checked : internalChecked;
 
   const handleClick = () => {
     if (disabled) return;
-    onCheckedChange?.(!isChecked);
+    const next = !isChecked;
+    if (!isControlled) setInternalChecked(next);
+    onCheckedChange?.(next);
   };
 
   return (

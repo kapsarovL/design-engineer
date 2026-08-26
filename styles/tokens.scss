@@ -1,10 +1,10 @@
 :root {
   /* ── Colors · Light Theme ─────────────────────────── */
-  --color-primary: #3b6cf5;
-  --color-primary-hover: #2b55d6;
-  --color-primary-dark: #1e3faa;
-  --color-primary-light: #eef3ff;
-  --color-primary-text: #1e3faa;
+  --color-primary: #0070f3;
+  --color-primary-hover: #0061d6;
+  --color-primary-dark: #0050b3;
+  --color-primary-light: #e6f0ff;
+  --color-primary-text: #0050b3;
 
   --color-bg: #faf9fb;
   --color-surface: #f3f1f6;
@@ -29,19 +29,25 @@
   --color-error: #e03e3e;
   --color-error-bg: #fcebea;
   --color-error-text: #ae2a19;
-  --color-info: #3b6cf5;
-  --color-info-bg: #deebff;
-  --color-info-text: #1e3faa;
+  --color-info: #0070f3;
+  --color-info-bg: #e6f0ff;
+  --color-info-text: #0050b3;
 
   /* Input Tokens */
   --input-bg: #ffffff;
   --input-border: #d9d4e3;
   --input-border-hover: #b8b0c9;
-  --input-border-focus: #3b6cf5;
+  --input-border-focus: #0070f3;
   --input-text: #1a1625;
   --input-placeholder: #7c7591;
   --input-disabled-bg: #f0edf5;
   --input-disabled-text: #a09aad;
+
+  /* On-surface text (for colored / code surfaces) */
+  --color-on-primary: #ffffff;
+  --color-on-light: #111827;
+  --color-code-bg: #0d1117;
+  --color-code-text: #c9d1d9;
 
   /* Status Colors */
   --color-status-todo-bg: #e4e0ed;
@@ -136,14 +142,22 @@
   --font-mono: "Geist Mono", ui-monospace, "Cascadia Code", "Fira Code", monospace;
 
   --text-2xs: 0.625rem;
+  --text-2xs-loose: 0.6875rem;
   --text-xs: 0.75rem;
   --text-sm: 0.8125rem;
+  --text-sm-loose: 0.875rem;
   --text-base: 0.9375rem;
+  --text-base-loose: 1rem;
+  --text-lg-tight: 1.0625rem;
   --text-lg: 1.125rem;
   --text-xl: 1.25rem;
   --text-2xl: 1.5rem;
+  --text-2xl-loose: 1.75rem;
   --text-3xl: 1.875rem;
+  --text-3xl-loose: 2rem;
   --text-4xl: 2.25rem;
+  --text-4xl-loose: 2.5rem;
+  --text-5xl: 4rem;
 
   --weight-regular: 400;
   --weight-medium: 500;
@@ -235,10 +249,10 @@
 /* ── Dark Theme ─────────────────────────────────────── */
 
 .dark {
-  --color-primary: #3b82f6;
-  --color-primary-hover: #60a5fa;
-  --color-primary-light: #1e3a5f;
-  --color-primary-text: #93c5fd;
+  --color-primary: #0070f3;
+  --color-primary-hover: #3b8fff;
+  --color-primary-light: #0d2a52;
+  --color-primary-text: #6ba8ff;
 
   --color-bg: #0a0a0a;
   --color-surface: #141414;
@@ -271,7 +285,7 @@
   --input-bg: #141414;
   --input-border: #333333;
   --input-border-hover: #555555;
-  --input-border-focus: #3b82f6;
+  --input-border-focus: #0070f3;
   --input-text: #ededed;
   --input-placeholder: #666666;
   --input-disabled-bg: #1a1a1a;
@@ -401,10 +415,10 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not(.dark):not(.light) {
-    --color-primary: #3b82f6;
-    --color-primary-hover: #60a5fa;
-    --color-primary-light: #1e3a5f;
-    --color-primary-text: #93c5fd;
+    --color-primary: #0070f3;
+    --color-primary-hover: #3b8fff;
+    --color-primary-light: #0d2a52;
+    --color-primary-text: #6ba8ff;
 
     --color-bg: #0a0a0a;
     --color-surface: #141414;
@@ -437,7 +451,7 @@
     --input-bg: #141414;
     --input-border: #333333;
     --input-border-hover: #555555;
-    --input-border-focus: #3b82f6;
+    --input-border-focus: #0070f3;
     --input-text: #ededed;
     --input-placeholder: #666666;
     --input-disabled-bg: #1a1a1a;

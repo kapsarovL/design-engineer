@@ -30,7 +30,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${jakartaSans.variable} light`}
     >
-      <body>
+      <body suppressHydrationWarning>
         <div className="grainOverlay" aria-hidden="true"></div>
         {children}
       </body>

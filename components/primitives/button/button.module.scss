@@ -41,7 +41,7 @@
 
 .primary {
   background-color: var(--color-primary);
-  color: #fff;
+  color: var(--color-on-primary);
 
   &:hover:not(:disabled) {
     background-color: var(--color-primary-hover);
@@ -84,10 +84,10 @@
 
 .destructive {
   background-color: var(--color-error);
-  color: #fff;
+  color: var(--color-on-primary);
 
   &:hover:not(:disabled) {
-    background-color: color-mix(in oklch, var(--color-error) 90%, #000);
+    background-color: color-mix(in oklch, var(--color-error) 90%, black);
     box-shadow: var(--shadow-glow-error);
   }
 

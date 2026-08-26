@@ -170,6 +170,7 @@ interface SidebarItemProps {
   href?: string;
   icon?: React.ReactNode;
   onClick?: () => void;
+  trailing?: React.ReactNode;
   className?: string;
   ref?: React.Ref<HTMLAnchorElement | HTMLButtonElement>;
 }
@@ -180,37 +181,42 @@ export function SidebarItem({
   href,
   icon,
   onClick,
+  trailing,
   className,
   ref,
 }: SidebarItemProps) {
-  const classes = [styles.item, active && styles.item__active, className]
+  const rowClasses = [styles.item, active && styles.item__active, className]
     .filter(Boolean)
     .join(" ");
 
-  if (href) {
-    return (
-      <a
-        ref={ref as React.Ref<HTMLAnchorElement>}
-        href={href}
-        className={classes}
-        aria-current={active ? "page" : undefined}
-      >
-        {icon && <span className={styles.itemIcon}>{icon}</span>}
-        <span className={styles.itemLabel}>{children}</span>
-      </a>
-    );
-  }
-
-  return (
+  const main = href ? (
+    <a
+      ref={ref as React.Ref<HTMLAnchorElement>}
+      href={href}
+      className={styles.itemMain}
+      aria-current={active ? "page" : undefined}
+      onClick={onClick}
+    >
+      {icon && <span className={styles.itemIcon}>{icon}</span>}
+      <span className={styles.itemLabel}>{children}</span>
+    </a>
+  ) : (
     <button
       ref={ref as React.Ref<HTMLButtonElement>}
       type="button"
+      className={styles.itemMain}
       onClick={onClick}
-      className={classes}
     >
       {icon && <span className={styles.itemIcon}>{icon}</span>}
       <span className={styles.itemLabel}>{children}</span>
     </button>
+  );
+
+  return (
+    <div className={rowClasses}>
+      {main}
+      {trailing && <span className={styles.itemTrailing}>{trailing}</span>}
+    </div>
   );
 }
 

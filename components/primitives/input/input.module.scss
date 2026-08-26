@@ -62,7 +62,7 @@
     border-color: var(--input-border-hover);
   }
 
-  &:focus {
+  &:focus-visible {
     border-color: var(--input-border-focus);
     box-shadow: var(--shadow-bezel-inner);
   }
@@ -98,7 +98,7 @@
 .error {
   border-color: var(--color-error);
 
-  &:focus {
+  &:focus-visible {
     box-shadow: var(--shadow-bezel-inner);
   }
 }

@@ -7,30 +7,41 @@ export const codeExamples: Record<string, CodeExample> = {
   button: {
     title: "Button",
     source: `import { Button } from "@/components/primitives/button/button";
+import { Icon } from "@/components/primitives/icon/icon";
 
 // Variants
-<Button variant="primary">Primary</Button>
-<Button variant="secondary">Secondary</Button>
-<Button variant="ghost">Ghost</Button>
-<Button variant="destructive">Destructive</Button>
+<Button variant="primary">Save</Button>
+<Button variant="secondary">Cancel</Button>
+<Button variant="ghost">Dismiss</Button>
+<Button variant="destructive">Delete</Button>
 
 // Sizes
 <Button size="sm">Small</Button>
 <Button size="md">Medium</Button>
 <Button size="lg">Large</Button>
 
-// States
-<Button disabled>Disabled</Button>
-<Button loading>Loading</Button>
+// Pill
+<Button pill>Pill</Button>
 
-// Icons
-<Button variant="secondary" icon={<span>+</span>}>
-  New Item
-</Button>
-<Button variant="destructive" icon={<span>✕</span>} iconPosition="end">
+// Leading + trailing icons
+<Button icon={<Icon name="plus" size="sm" />}>New item</Button>
+<Button variant="destructive" icon={<Icon name="trash" size="sm" />} iconPosition="end">
   Delete
 </Button>
-<Button variant="ghost" icon={<span>⚙</span>} aria-label="Settings" />`,
+<Button trailingIcon={<Icon name="arrow-right" size="sm" />}>Continue</Button>
+
+// Icon-only (needs aria-label)
+<Button aria-label="Add" icon={<Icon name="plus" size="sm" />} />
+<Button variant="ghost" aria-label="Settings" icon={<Icon name="settings" size="sm" />} />
+
+// States
+<Button disabled>Disabled</Button>
+<Button loading>Saving…</Button>
+
+// Polymorphic — merge onto an anchor
+<Button asChild>
+  <a href="/settings">Open settings</a>
+</Button>`,
   },
   avatar: {
     title: "Avatar",
@@ -247,8 +258,29 @@ import { Button } from "@/components/primitives/button/button";
     <Button onClick={() => dialogRef.current?.close()}>
       Confirm
     </Button>
-  </DialogFooter>
-</dialog>`,
+    </DialogFooter>
+  </dialog>`,
+  },
+  accordion: {
+    title: "Accordion",
+    source: `import { Accordion, AccordionItem } from "@/components/primitives/accordion/accordion";
+
+// Single-open, first item open by default
+<Accordion type="single" defaultValue="a">
+  <AccordionItem value="a" title="What is the design system?">
+    <p>A token-driven, accessible React + SCSS component library.</p>
+  </AccordionItem>
+  <AccordionItem value="b" title="How do I theme it?">
+    <p>Adjust accent, radius, and spacing tokens live in the playground.</p>
+  </AccordionItem>
+</Accordion>
+
+// Multiple-open, with a disabled item
+<Accordion type="multiple" defaultValue={["x"]}>
+  <AccordionItem value="x" title="First">Content</AccordionItem>
+  <AccordionItem value="y" title="Second">Content</AccordionItem>
+  <AccordionItem value="z" title="Third" disabled>Content</AccordionItem>
+</Accordion>`,
   },
   "form-field": {
     title: "FormField",
@@ -372,6 +404,102 @@ import { Icon } from "@/components/primitives/icon/icon";
   <Icon name="settings" size="sm" />
 </Toggle>`,
   },
+  switch: {
+    title: "Switch",
+    source: `import { Switch } from "@/components/primitives/switch/switch";
+
+// Uncontrolled — manages its own state
+<Switch defaultChecked />
+<Switch defaultChecked={false} />
+
+// Controlled
+<Switch checked={enabled} onCheckedChange={setEnabled} />
+
+// Sizes: sm, md (default), lg
+<Switch size="sm" />
+<Switch size="lg" />
+
+// With label
+<Switch id="notifications" defaultChecked />
+<label htmlFor="notifications">Notifications</label>
+
+// Disabled
+<Switch disabled />
+<Switch disabled defaultChecked />`,
+  },
+  menu: {
+    title: "Menu",
+    source: `import {
+  Menu,
+  MenuGroup,
+  MenuItem,
+  MenuSeparator,
+} from "@/components/primitives/menu/menu";
+
+// Basic
+<Menu>
+  <MenuItem>Profile</MenuItem>
+  <MenuItem>Settings</MenuItem>
+  <MenuSeparator />
+  <MenuItem>Help</MenuItem>
+</Menu>
+
+// With groups
+<Menu>
+  <MenuGroup label="Account">
+    <MenuItem>Profile</MenuItem>
+    <MenuItem>Billing</MenuItem>
+  </MenuGroup>
+  <MenuSeparator />
+  <MenuGroup label="Actions">
+    <MenuItem destructive>Sign out</MenuItem>
+  </MenuGroup>
+</Menu>`,
+  },
+  "dropdown-menu": {
+    title: "DropdownMenu",
+    source: `import { Button } from "@/components/primitives/button/button";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/primitives/dropdown-menu/dropdown-menu";
+
+<DropdownMenu>
+  <DropdownMenuTrigger asChild>
+    <Button variant="secondary" size="sm">Actions ▾</Button>
+  </DropdownMenuTrigger>
+  <DropdownMenuContent>
+    <DropdownMenuItem>Edit</DropdownMenuItem>
+    <DropdownMenuItem>Duplicate</DropdownMenuItem>
+    <DropdownMenuItem destructive>Delete</DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>`,
+  },
+  "tag-group": {
+    title: "TagGroup",
+    source: `import {
+  TagGroup,
+  TagList,
+  Tag,
+} from "@/components/primitives/tag/tag";
+
+// Basic group with variants
+<TagGroup>
+  <Tag>Default</Tag>
+  <Tag variant="status">Status</Tag>
+  <Tag variant="priority">Priority</Tag>
+  <Tag removable onRemove={() => {}}>Removable</Tag>
+</TagGroup>
+
+// Labelled list
+<TagList label="Filters">
+  <Tag>React</Tag>
+  <Tag>SCSS</Tag>
+  <Tag removable onRemove={remove}>Draft</Tag>
+</TagList>`,
+  },
   shadows: {
     title: "Shadows",
     source: `// Usage in SCSS
@@ -485,5 +613,38 @@ import {
 // <ProfileStep />
 // <PreferencesStep />
 // etc.`, // <-- End of onboarding source
+  },
+  progress: {
+    title: "Progress",
+    source: `import { Progress } from "@/components/primitives/progress/progress";
+
+// Determinate (0-100)
+<Progress value={35} aria-label="Setup progress" />
+<Progress value={70} aria-label="Upload progress" />
+
+// Custom maximum
+<Progress value={3} max={4} aria-label="Step 3 of 4" />`,
+  },
+  sidebar: {
+    title: "Sidebar",
+    source: `import {
+  Sidebar,
+  SidebarProvider,
+  SidebarHeader,
+  SidebarContent,
+  SidebarItem,
+} from "@/components/primitives/sidebar/sidebar";
+import { Icon } from "@/components/primitives/icon/icon";
+
+<SidebarProvider>
+  <Sidebar side="left">
+    <SidebarHeader>Workspace</SidebarHeader>
+    <SidebarContent>
+      <SidebarItem active icon={<Icon name="home" />}>Home</SidebarItem>
+      <SidebarItem icon={<Icon name="user" />}>Profile</SidebarItem>
+      <SidebarItem icon={<Icon name="settings" />}>Settings</SidebarItem>
+    </SidebarContent>
+  </Sidebar>
+</SidebarProvider>`,
   },
 };

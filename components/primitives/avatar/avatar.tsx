@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import type React from "react";
 import { useCallback, useState } from "react";
 import styles from "./avatar.module.scss";
@@ -44,9 +45,11 @@ export function Avatar({
       {...props}
     >
       {showImage ? (
-        <img
+        <Image
           src={src}
           alt={alt}
+          fill
+          sizes="64px"
           className={styles.image}
           onError={handleImageError}
         />

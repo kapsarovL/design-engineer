@@ -9,10 +9,13 @@ import {
   useState,
 } from "react";
 import { CodePanel } from "@/components/code-panel/code-panel";
+import { CommandPalette } from "@/components/command-palette/command-palette";
 import { ComponentDocs } from "@/components/component-docs/component-docs";
-import { docsData } from "@/components/component-docs/data";
+import { docsData, getComponentDoc } from "@/components/component-docs/data";
 import { OnboardingFlow } from "@/components/features/onboarding";
 import {
+  Accordion,
+  AccordionItem,
   Avatar,
   AvatarGroup,
   Badge,
@@ -45,6 +48,7 @@ import {
   MenuGroup,
   MenuItem,
   MenuSeparator,
+  Progress,
   Select,
   Separator,
   Sidebar,
@@ -64,34 +68,53 @@ import {
   TableHeader,
   TableRow,
   Tabs,
+  Tag,
+  TagGroup,
+  TagList,
   Toggle,
   Tooltip,
+  useSidebar,
 } from "@/components/primitives";
+import { ThemePlayground } from "@/components/theme-playground/theme-playground";
 import { codeExamples } from "./code-examples";
 import styles from "./variables.module.scss";
 
+function scrollToId(id: string) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const reduce = window.matchMedia?.(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+  el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  el.classList.add("revealed");
+  el.setAttribute("tabindex", "-1");
+  (el as HTMLElement).focus({ preventScroll: true });
+}
+
 const navItems = [
-  { id: "button", label: "Button", icon: "◻" },
-  { id: "avatar", label: "Avatar", icon: "●" },
-  { id: "label-input", label: "Label + Input", icon: "◉" },
-  { id: "card", label: "Card", icon: "▢" },
-  { id: "tabs", label: "Tabs", icon: "≡" },
-  { id: "select", label: "Select", icon: "▾" },
-  { id: "tooltip", label: "Tooltip", icon: "💬" },
-  { id: "badge", label: "Badge", icon: "◆" },
-  { id: "dialog", label: "Dialog", icon: "◻" },
-  { id: "form-field", label: "FormField", icon: "▤" },
-  { id: "table", label: "Table", icon: "▥" },
-  { id: "icon", label: "Icon", icon: "⚡" },
-  { id: "typography", label: "Typography", icon: "Aa" },
-  { id: "separator", label: "Separator", icon: "—" },
-  { id: "toggle", label: "Toggle", icon: "◎" },
-  { id: "switch", label: "Switch", icon: "◑" },
-  { id: "menu", label: "Menu", icon: "☰" },
-  { id: "dropdown-menu", label: "DropdownMenu", icon: "▾" },
-  { id: "onboarding", label: "Onboarding", icon: "→" },
-  { id: "shadows", label: "Shadows", icon: "▧" },
-  { id: "colors", label: "Color Tokens", icon: "◈" },
+  { id: "button", label: "Button", icon: "box" },
+  { id: "avatar", label: "Avatar", icon: "user" },
+  { id: "label-input", label: "Label + Input", icon: "form" },
+  { id: "card", label: "Card", icon: "box" },
+  { id: "tabs", label: "Tabs", icon: "tabs" },
+  { id: "select", label: "Select", icon: "chevron-down" },
+  { id: "tooltip", label: "Tooltip", icon: "message" },
+  { id: "badge", label: "Badge", icon: "badge" },
+  { id: "dialog", label: "Dialog", icon: "dialog" },
+  { id: "accordion", label: "Accordion", icon: "chevron-down" },
+  { id: "form-field", label: "FormField", icon: "form" },
+  { id: "table", label: "Table", icon: "table" },
+  { id: "icon", label: "Icon", icon: "grid" },
+  { id: "typography", label: "Typography", icon: "type" },
+  { id: "separator", label: "Separator", icon: "separator" },
+  { id: "toggle", label: "Toggle", icon: "toggle" },
+  { id: "switch", label: "Switch", icon: "toggle" },
+  { id: "menu", label: "Menu", icon: "menu" },
+  { id: "tag-group", label: "TagGroup", icon: "tag" },
+  { id: "dropdown-menu", label: "DropdownMenu", icon: "chevron-down" },
+  { id: "onboarding", label: "Onboarding", icon: "steps" },
+  { id: "progress", label: "Progress", icon: "loader" },
+  { id: "sidebar", label: "Sidebar", icon: "sidebar" },
 ];
 
 const demoRows = [
@@ -153,6 +176,93 @@ const statusColors: Record<string, "completed" | "progress" | "todo"> = {
   shipped: "completed",
 };
 
+/* ── Interactive Menu demo (gives the Menu primitive real feedback) ── */
+function InteractiveMenu() {
+  const [picked, setPicked] = useState<string | null>(null);
+  return (
+    <>
+      <div className={styles.componentBlock}>
+        <span className={styles.blockLabel}>Basic</span>
+        <div style={{ display: "flex", gap: "var(--space-6)" }}>
+          <div style={{ position: "relative" }}>
+            <Menu>
+              <MenuItem onClick={() => setPicked("Profile")}>Profile</MenuItem>
+              <MenuItem onClick={() => setPicked("Settings")}>
+                Settings
+              </MenuItem>
+              <MenuSeparator />
+              <MenuItem onClick={() => setPicked("Help")}>Help</MenuItem>
+            </Menu>
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.componentBlock}>
+        <span className={styles.blockLabel}>With Groups</span>
+        <div style={{ position: "relative" }}>
+          <Menu>
+            <MenuGroup label="Account">
+              <MenuItem onClick={() => setPicked("Account · Profile")}>
+                Profile
+              </MenuItem>
+              <MenuItem onClick={() => setPicked("Account · Billing")}>
+                Billing
+              </MenuItem>
+              <MenuItem onClick={() => setPicked("Account · Settings")}>
+                Settings
+              </MenuItem>
+            </MenuGroup>
+            <MenuSeparator />
+            <MenuGroup label="Actions">
+              <MenuItem destructive onClick={() => setPicked("Signed out")}>
+                Sign out
+              </MenuItem>
+            </MenuGroup>
+          </Menu>
+        </div>
+      </div>
+
+      {picked && (
+        <p
+          className={styles.inlineCode}
+          style={{ marginTop: "var(--space-2)" }}
+        >
+          Last selected: {picked}
+        </p>
+      )}
+    </>
+  );
+}
+
+/* ── Interactive TagGroup demo (removable tags actually remove) ── */
+function InteractiveTags() {
+  const [tags, setTags] = useState<string[]>([
+    "React",
+    "TypeScript",
+    "SCSS",
+    "Next.js",
+    "Vercel",
+  ]);
+  return (
+    <>
+      <TagGroup>
+        {tags.map((t) => (
+          <Tag
+            key={t}
+            removable
+            onRemove={() => setTags((cur) => cur.filter((x) => x !== t))}
+          >
+            {t}
+          </Tag>
+        ))}
+      </TagGroup>
+      <p className={styles.inlineCode} style={{ marginTop: "var(--space-2)" }}>
+        {tags.length} active filter{tags.length === 1 ? "" : "s"}
+      </p>
+    </>
+  );
+}
+
 /* ── Showcase Content (memoized — no parent state) ── */
 const ShowcaseContent = memo(function ShowcaseContent() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -210,93 +320,171 @@ const ShowcaseContent = memo(function ShowcaseContent() {
             </p>
           </div>
           <div className={styles.heroActions}>
-            <Button variant="primary" size="lg" icon={<span>→</span>}>
+            <Button
+              variant="primary"
+              size="lg"
+              icon={<Icon name="arrow-right" size="sm" />}
+              onClick={() => scrollToId("button")}
+            >
               Explore components
             </Button>
-            <Button variant="ghost" size="lg">
+            <Button
+              variant="ghost"
+              size="lg"
+              onClick={() => scrollToId("colors")}
+            >
               View tokens
             </Button>
           </div>
         </section>
 
         {/* ── Buttons ───────────────────────────────── */}
-        <section id="button" className={`${styles.showcaseSection} reveal`}>
-          <span className="eyebrow">
-            <span className="eyebrowDot"></span> Primitives
-          </span>
-          <h2 className={styles.sectionTitle}>Button</h2>
-          <p className={styles.sectionDesc}>
-            Variants, sizes, loading states, and icon support.
-          </p>
-
-          <div className={styles.componentBlock}>
-            <span className={styles.blockLabel}>Variants</span>
-            <div className={styles.row}>
-              <Button variant="primary">Primary</Button>
-              <Button variant="secondary">Secondary</Button>
-              <Button variant="ghost">Ghost</Button>
-              <Button variant="destructive">Destructive</Button>
-            </div>
-          </div>
-
-          <div className={styles.componentBlock}>
-            <span className={styles.blockLabel}>Sizes</span>
-            <div className={styles.measureRow}>
-              <div className={styles.measureItem}>
-                <span className={styles.measureLabel}>sm — 32px</span>
-                <Button size="sm">Small</Button>
-              </div>
-              <div className={styles.measureItem}>
-                <span className={styles.measureLabel}>md — 36px</span>
-                <Button size="md">Medium</Button>
-              </div>
-              <div className={styles.measureItem}>
-                <span className={styles.measureLabel}>lg — 40px</span>
-                <Button size="lg">Large</Button>
-              </div>
-            </div>
-            <div className={styles.measureTokens}>
-              <span className={styles.measureToken}>
-                sm: h-2rem px-3 text-xs
+        <section
+          id="button"
+          className={`${styles.showcaseSection} ${styles.stickySection} reveal`}
+        >
+          <div className={styles.featureSplit}>
+            <div className={styles.featureSplitAside}>
+              <span className="eyebrow">
+                <span className="eyebrowDot"></span> Primitives
               </span>
-              <span className={styles.measureToken}>
-                md: h-2.25rem px-4 text-sm
-              </span>
-              <span className={styles.measureToken}>
-                lg: h-2.5rem px-5 text-base
-              </span>
+              <h2 className={styles.sectionTitle}>Button</h2>
+              <p className={styles.sectionDesc}>
+                Variants, sizes, loading states, and icon support.
+              </p>
+              <nav className={styles.featureNav} aria-label="Button demos">
+                <button
+                  type="button"
+                  onClick={() => scrollToId("button-variants")}
+                >
+                  Variants
+                </button>
+                <button
+                  type="button"
+                  onClick={() => scrollToId("button-sizes")}
+                >
+                  Sizes
+                </button>
+                <button
+                  type="button"
+                  onClick={() => scrollToId("button-states")}
+                >
+                  States
+                </button>
+                <button type="button" onClick={() => scrollToId("button-icon")}>
+                  Icon
+                </button>
+                <button
+                  type="button"
+                  onClick={() => scrollToId("button-polymorphism")}
+                >
+                  Polymorphism
+                </button>
+              </nav>
             </div>
-          </div>
+            <div className={styles.featureSplitMain}>
+              <div id="button-variants" className={styles.componentBlock}>
+                <span className={styles.blockLabel}>Variants</span>
+                <div className={styles.row}>
+                  <Button variant="primary">Primary</Button>
+                  <Button variant="secondary">Secondary</Button>
+                  <Button variant="ghost">Ghost</Button>
+                  <Button variant="destructive">Destructive</Button>
+                </div>
+              </div>
 
-          <div className={styles.componentBlock}>
-            <span className={styles.blockLabel}>States</span>
-            <div className={styles.row}>
-              <Button disabled>Disabled</Button>
-              <Button loading>Loading</Button>
-            </div>
-          </div>
+              <div id="button-sizes" className={styles.componentBlock}>
+                <span className={styles.blockLabel}>Sizes</span>
+                <div className={styles.measureRow}>
+                  <div className={styles.measureItem}>
+                    <span className={styles.measureLabel}>sm — 32px</span>
+                    <Button size="sm">Small</Button>
+                  </div>
+                  <div className={styles.measureItem}>
+                    <span className={styles.measureLabel}>md — 36px</span>
+                    <Button size="md">Medium</Button>
+                  </div>
+                  <div className={styles.measureItem}>
+                    <span className={styles.measureLabel}>lg — 40px</span>
+                    <Button size="lg">Large</Button>
+                  </div>
+                </div>
+                <div className={styles.measureTokens}>
+                  <span className={styles.measureToken}>
+                    sm: h-2rem px-3 text-xs
+                  </span>
+                  <span className={styles.measureToken}>
+                    md: h-2.25rem px-4 text-sm
+                  </span>
+                  <span className={styles.measureToken}>
+                    lg: h-2.5rem px-5 text-base
+                  </span>
+                </div>
+              </div>
 
-          <div className={styles.componentBlock}>
-            <span className={styles.blockLabel}>Icon</span>
-            <div className={styles.row}>
-              <Button variant="secondary" icon={<span>+</span>}>
-                New Item
-              </Button>
-              <Button
-                variant="destructive"
-                icon={<span>✕</span>}
-                iconPosition="end"
-              >
-                Delete
-              </Button>
-              <Button
-                variant="ghost"
-                icon={<span>⚙</span>}
-                aria-label="Settings"
-              />
+              <div id="button-states" className={styles.componentBlock}>
+                <span className={styles.blockLabel}>States</span>
+                <div className={styles.row}>
+                  <Button disabled>Disabled</Button>
+                  <Button loading>Loading</Button>
+                </div>
+              </div>
+
+              <div id="button-icon" className={styles.componentBlock}>
+                <span className={styles.blockLabel}>Icon</span>
+                <div className={styles.row}>
+                  <Button
+                    variant="secondary"
+                    icon={<Icon name="plus" size="sm" />}
+                  >
+                    New Item
+                  </Button>
+                  <Button
+                    variant="destructive"
+                    icon={<Icon name="close" size="sm" />}
+                    iconPosition="end"
+                  >
+                    Delete
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    icon={<Icon name="settings" size="sm" />}
+                    aria-label="Settings"
+                  />
+                  <Button
+                    variant="primary"
+                    trailingIcon={<Icon name="arrow-right" size="sm" />}
+                  >
+                    Continue
+                  </Button>
+                </div>
+              </div>
+
+              <div id="button-polymorphism" className={styles.componentBlock}>
+                <span className={styles.blockLabel}>As link (asChild)</span>
+                <p
+                  style={{
+                    fontSize: "var(--text-sm)",
+                    color: "var(--color-text-muted)",
+                    margin: "0 0 var(--space-4)",
+                  }}
+                >
+                  Merge button styles onto any element — here, anchors.
+                </p>
+                <div className={styles.row}>
+                  <Button asChild>
+                    <a href="#button">Jump to Button</a>
+                  </Button>
+                  <Button asChild variant="ghost">
+                    <a href="#avatar">Jump to Avatar</a>
+                  </Button>
+                </div>
+              </div>
+            </div>
+            <div className={styles.featureSplitDocs}>
+              <ComponentDocs doc={getComponentDoc("button")} />
             </div>
           </div>
-          <ComponentDocs doc={docsData.find((d) => d.name === "button")!} />
         </section>
 
         {/* ── Avatar ────────────────────────────────── */}
@@ -369,7 +557,7 @@ const ShowcaseContent = memo(function ShowcaseContent() {
               </AvatarGroup>
             </div>
           </div>
-          <ComponentDocs doc={docsData.find((d) => d.name === "avatar")!} />
+          <ComponentDocs doc={getComponentDoc("avatar")} />
         </section>
 
         {/* ── Label + Input ─────────────────────────── */}
@@ -459,8 +647,8 @@ const ShowcaseContent = memo(function ShowcaseContent() {
               </div>
             </div>
           </div>
-          <ComponentDocs doc={docsData.find((d) => d.name === "input")!} />
-          <ComponentDocs doc={docsData.find((d) => d.name === "label")!} />
+          <ComponentDocs doc={getComponentDoc("input")} />
+          <ComponentDocs doc={getComponentDoc("label")} />
         </section>
 
         {/* ── Card ──────────────────────────────────── */}
@@ -595,7 +783,7 @@ const ShowcaseContent = memo(function ShowcaseContent() {
               </CardContent>
             </Card>
           </div>
-          <ComponentDocs doc={docsData.find((d) => d.name === "card")!} />
+          <ComponentDocs doc={getComponentDoc("card")} />
         </section>
 
         {/* ── Tabs ──────────────────────────────────── */}
@@ -657,7 +845,7 @@ const ShowcaseContent = memo(function ShowcaseContent() {
               ]}
             />
           </div>
-          <ComponentDocs doc={docsData.find((d) => d.name === "tabs")!} />
+          <ComponentDocs doc={getComponentDoc("tabs")} />
         </section>
 
         {/* ── Select ────────────────────────────────── */}
@@ -736,7 +924,7 @@ const ShowcaseContent = memo(function ShowcaseContent() {
               />
             </div>
           </div>
-          <ComponentDocs doc={docsData.find((d) => d.name === "select")!} />
+          <ComponentDocs doc={getComponentDoc("select")} />
         </section>
 
         {/* ── Tooltip ───────────────────────────────── */}
@@ -796,7 +984,7 @@ const ShowcaseContent = memo(function ShowcaseContent() {
               </Tooltip>
             </div>
           </div>
-          <ComponentDocs doc={docsData.find((d) => d.name === "tooltip")!} />
+          <ComponentDocs doc={getComponentDoc("tooltip")} />
         </section>
 
         {/* ── Badge ─────────────────────────────────── */}
@@ -860,8 +1048,41 @@ const ShowcaseContent = memo(function ShowcaseContent() {
               <span className={styles.measureToken}>border: 1px solid</span>
             </div>
           </div>
-          <ComponentDocs doc={docsData.find((d) => d.name === "badge")!} />
-          <ComponentDocs doc={docsData.find((d) => d.name === "tag")!} />
+          <ComponentDocs doc={getComponentDoc("badge")} />
+          <ComponentDocs doc={getComponentDoc("tag")} />
+        </section>
+
+        {/* ── Progress ──────────────────────────────── */}
+        <section id="progress" className={`${styles.showcaseSection} reveal`}>
+          <span className="eyebrow">
+            <span className="eyebrowDot"></span> Primitives
+          </span>
+          <h2 className={styles.sectionTitle}>Progress</h2>
+          <p className={styles.sectionDesc}>
+            Accessible progress indicator for completion, loading, and
+            multi-step state. Exposes{" "}
+            <code className={styles.inlineCode}>role="progressbar"</code> with
+            ARIA value bindings.
+          </p>
+
+          <div className={styles.componentBlock}>
+            <span className={styles.blockLabel}>Determinate</span>
+            <div className={styles.row}>
+              <Progress value={35} aria-label="Setup progress" />
+            </div>
+            <div className={styles.row}>
+              <Progress value={70} aria-label="Upload progress" />
+            </div>
+          </div>
+
+          <div className={styles.componentBlock}>
+            <span className={styles.blockLabel}>With max</span>
+            <div className={styles.row}>
+              <Progress value={3} max={4} aria-label="Step 3 of 4" />
+            </div>
+          </div>
+
+          <ComponentDocs doc={getComponentDoc("progress")} />
         </section>
 
         {/* ── Dialog ───────────────────────────────── */}
@@ -909,7 +1130,7 @@ const ShowcaseContent = memo(function ShowcaseContent() {
               <DialogBody>
                 <p
                   style={{
-                    fontSize: "0.875rem",
+                    fontSize: "var(--text-sm-loose)",
                     color: "var(--color-text-secondary)",
                     margin: 0,
                   }}
@@ -983,7 +1204,7 @@ const ShowcaseContent = memo(function ShowcaseContent() {
               <DialogBody>
                 <p
                   style={{
-                    fontSize: "0.875rem",
+                    fontSize: "var(--text-sm-loose)",
                     color: "var(--color-text-secondary)",
                     margin: 0,
                   }}
@@ -1006,7 +1227,7 @@ const ShowcaseContent = memo(function ShowcaseContent() {
               <DialogBody>
                 <p
                   style={{
-                    fontSize: "0.875rem",
+                    fontSize: "var(--text-sm-loose)",
                     color: "var(--color-text-secondary)",
                     margin: 0,
                   }}
@@ -1019,7 +1240,67 @@ const ShowcaseContent = memo(function ShowcaseContent() {
               </DialogFooter>
             </dialog>
           </div>
-          <ComponentDocs doc={docsData.find((d) => d.name === "dialog")!} />
+          <ComponentDocs doc={getComponentDoc("dialog")} />
+        </section>
+
+        {/* ── Accordion ─────────────────────────────── */}
+        <section id="accordion" className={`${styles.showcaseSection} reveal`}>
+          <span className="eyebrow">
+            <span className="eyebrowDot"></span> Disclosure
+          </span>
+          <h2 className={styles.sectionTitle}>Accordion</h2>
+          <p className={styles.sectionDesc}>
+            Stacked disclosure sections for FAQs and settings. Single- or
+            multi-open, with full keyboard and screen-reader support.
+          </p>
+
+          <div className={styles.componentBlocks}>
+            <div className={styles.componentBlock}>
+              <span className={styles.blockLabel}>
+                Single — one open at a time
+              </span>
+              <Accordion type="single" defaultValue="a">
+                <AccordionItem value="a" title="What is the design system?">
+                  <p>
+                    A token-driven, accessible React + SCSS component library
+                    built dark-first on a neutral Vercel-style scale.
+                  </p>
+                </AccordionItem>
+                <AccordionItem value="b" title="How do I theme it?">
+                  <p>
+                    Open the settings button in the top bar to adjust the accent
+                    color, corner radius, and spacing live.
+                  </p>
+                </AccordionItem>
+                <AccordionItem value="c" title="Is it accessible?">
+                  <p>
+                    Every trigger is a real button wired with{" "}
+                    <code>aria-expanded</code> and <code>aria-controls</code>
+                    panels are labelled regions.
+                  </p>
+                </AccordionItem>
+              </Accordion>
+            </div>
+
+            <div className={styles.componentBlock}>
+              <span className={styles.blockLabel}>
+                Multiple — disabled item
+              </span>
+              <Accordion type="multiple" defaultValue={["x", "y"]}>
+                <AccordionItem value="x" title="First section">
+                  <p>Multiple items can stay open together.</p>
+                </AccordionItem>
+                <AccordionItem value="y" title="Second section">
+                  <p>Useful for settings where context matters.</p>
+                </AccordionItem>
+                <AccordionItem value="z" title="Locked section" disabled>
+                  <p>This content is not available yet.</p>
+                </AccordionItem>
+              </Accordion>
+            </div>
+          </div>
+
+          <ComponentDocs doc={getComponentDoc("accordion")} />
         </section>
 
         {/* ── FormField ─────────────────────────────── */}
@@ -1075,7 +1356,7 @@ const ShowcaseContent = memo(function ShowcaseContent() {
               </FormField>
             </div>
           </div>
-          <ComponentDocs doc={docsData.find((d) => d.name === "form-field")!} />
+          <ComponentDocs doc={getComponentDoc("form-field")} />
         </section>
 
         {/* ── Table ─────────────────────────────────── */}
@@ -1157,7 +1438,7 @@ const ShowcaseContent = memo(function ShowcaseContent() {
               </Table>
             </div>
           </div>
-          <ComponentDocs doc={docsData.find((d) => d.name === "table")!} />
+          <ComponentDocs doc={getComponentDoc("table")} />
         </section>
 
         {/* ── Icon ──────────────────────────────────── */}
@@ -1248,7 +1529,7 @@ const ShowcaseContent = memo(function ShowcaseContent() {
               </Badge>
             </div>
           </div>
-          <ComponentDocs doc={docsData.find((d) => d.name === "icon")!} />
+          <ComponentDocs doc={getComponentDoc("icon")} />
         </section>
 
         {/* ── Typography ────────────────────────────── */}
@@ -1513,7 +1794,7 @@ const ShowcaseContent = memo(function ShowcaseContent() {
               </Button>
             </div>
           </div>
-          <ComponentDocs doc={docsData.find((d) => d.name === "separator")!} />
+          <ComponentDocs doc={getComponentDoc("separator")} />
         </section>
 
         {/* ── Toggle ───────────────────────────────── */}
@@ -1609,7 +1890,7 @@ const ShowcaseContent = memo(function ShowcaseContent() {
               </Toggle>
             </div>
           </div>
-          <ComponentDocs doc={docsData.find((d) => d.name === "toggle")!} />
+          <ComponentDocs doc={getComponentDoc("toggle")} />
         </section>
 
         {/* ── Switch ───────────────────────────────── */}
@@ -1689,7 +1970,7 @@ const ShowcaseContent = memo(function ShowcaseContent() {
               </div>
             </div>
           </div>
-          <ComponentDocs doc={docsData.find((d) => d.name === "switch")!} />
+          <ComponentDocs doc={getComponentDoc("switch")} />
         </section>
 
         {/* ── Menu ───────────────────────────────────── */}
@@ -1703,37 +1984,8 @@ const ShowcaseContent = memo(function ShowcaseContent() {
             groups. Used as the building block for DropdownMenu.
           </p>
 
-          <div className={styles.componentBlock}>
-            <span className={styles.blockLabel}>Basic</span>
-            <div style={{ display: "flex", gap: "var(--space-6)" }}>
-              <div style={{ position: "relative" }}>
-                <Menu>
-                  <MenuItem>Profile</MenuItem>
-                  <MenuItem>Settings</MenuItem>
-                  <MenuSeparator />
-                  <MenuItem>Help</MenuItem>
-                </Menu>
-              </div>
-            </div>
-          </div>
-
-          <div className={styles.componentBlock}>
-            <span className={styles.blockLabel}>With Groups</span>
-            <div style={{ position: "relative" }}>
-              <Menu>
-                <MenuGroup label="Account">
-                  <MenuItem>Profile</MenuItem>
-                  <MenuItem>Billing</MenuItem>
-                  <MenuItem>Settings</MenuItem>
-                </MenuGroup>
-                <MenuSeparator />
-                <MenuGroup label="Actions">
-                  <MenuItem destructive>Sign out</MenuItem>
-                </MenuGroup>
-              </Menu>
-            </div>
-          </div>
-          <ComponentDocs doc={docsData.find((d) => d.name === "menu")!} />
+          <InteractiveMenu />
+          <ComponentDocs doc={getComponentDoc("menu")} />
         </section>
 
         {/* ── DropdownMenu ────────────────────────────── */}
@@ -1784,9 +2036,94 @@ const ShowcaseContent = memo(function ShowcaseContent() {
               </DropdownMenu>
             </div>
           </div>
-          <ComponentDocs
-            doc={docsData.find((d) => d.name === "dropdown-menu")!}
-          />
+          <ComponentDocs doc={getComponentDoc("dropdown-menu")} />
+        </section>
+
+        {/* ── Sidebar ───────────────────────────────── */}
+        <section id="sidebar" className={`${styles.showcaseSection} reveal`}>
+          <span className="eyebrow">
+            <span className="eyebrowDot"></span> Primitives
+          </span>
+          <h2 className={styles.sectionTitle}>Sidebar</h2>
+          <p className={styles.sectionDesc}>
+            Compound navigation shell: provider, collapsible rail, active state,
+            leading icons, and an optional trailing slot.
+          </p>
+
+          <div className={styles.componentBlock}>
+            <span className={styles.blockLabel}>Example</span>
+            <div className={styles.row}>
+              <div className={styles.demoSidebarWrap}>
+                <SidebarProvider>
+                  <Sidebar side="left">
+                    <SidebarHeader>Workspace</SidebarHeader>
+                    <SidebarContent>
+                      <SidebarItem active icon={<Icon name="home" />}>
+                        Home
+                      </SidebarItem>
+                      <SidebarItem icon={<Icon name="user" />}>
+                        Profile
+                      </SidebarItem>
+                      <SidebarItem icon={<Icon name="settings" />}>
+                        Settings
+                      </SidebarItem>
+                    </SidebarContent>
+                  </Sidebar>
+                </SidebarProvider>
+              </div>
+            </div>
+          </div>
+
+          <ComponentDocs doc={getComponentDoc("sidebar")} />
+        </section>
+
+        {/* ── TagGroup ──────────────────────────────── */}
+        <section id="tag-group" className={`${styles.showcaseSection} reveal`}>
+          <span className="eyebrow">
+            <span className="eyebrowDot"></span> Primitives
+          </span>
+          <h2 className={styles.sectionTitle}>TagGroup</h2>
+          <p className={styles.sectionDesc}>
+            Context-driven, removable labels for filtering and categorization.
+            Compose <code className={styles.inlineCode}>TagGroup</code> with{" "}
+            <code className={styles.inlineCode}>TagList</code> and{" "}
+            <code className={styles.inlineCode}>Tag</code>, with status and
+            priority variants.
+          </p>
+
+          <div className={styles.componentBlock}>
+            <span className={styles.blockLabel}>Variants</span>
+            <div className={styles.row}>
+              <TagGroup>
+                <Tag>Default</Tag>
+                <Tag variant="status">Status</Tag>
+                <Tag variant="priority">Priority</Tag>
+                <Tag removable onRemove={() => {}}>
+                  Removable
+                </Tag>
+              </TagGroup>
+            </div>
+          </div>
+
+          <div className={styles.componentBlock}>
+            <span className={styles.blockLabel}>With TagList</span>
+            <div className={styles.row}>
+              <TagList label="Filters">
+                <Tag>Design</Tag>
+                <Tag>Engineering</Tag>
+                <Tag removable onRemove={() => {}}>
+                  Draft
+                </Tag>
+              </TagList>
+            </div>
+          </div>
+
+          <div className={styles.componentBlock}>
+            <span className={styles.blockLabel}>Interactive</span>
+            <InteractiveTags />
+          </div>
+
+          <ComponentDocs doc={getComponentDoc("tag-group")} />
         </section>
 
         {/* ── Shadows ───────────────────────────────── */}
@@ -2100,10 +2437,135 @@ const ShowcaseContent = memo(function ShowcaseContent() {
   );
 });
 
+/* ── Sidebar nav (inside the provider so it can close the drawer) ── */
+function SidebarNav({
+  activeId,
+  onOpenSource,
+}: {
+  activeId: string;
+  onOpenSource: (id: string) => void;
+}) {
+  const { open, toggle } = useSidebar();
+
+  const handleNav = useCallback(
+    (id: string) => {
+      scrollToId(id);
+      if (
+        typeof window !== "undefined" &&
+        window.matchMedia("(max-width: 900px)").matches &&
+        open
+      ) {
+        toggle();
+      }
+    },
+    [open, toggle],
+  );
+
+  /* Mobile: don't cover the page with the drawer on first paint. */
+  // biome-ignore lint/correctness/useExhaustiveDependencies: intentional one-time mount effect
+  useEffect(() => {
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia("(max-width: 900px)").matches &&
+      open
+    ) {
+      toggle();
+    }
+  }, []);
+
+  return (
+    <>
+      <SidebarGroup label="Primitives">
+        {navItems.map((item) => (
+          <SidebarItem
+            key={item.id}
+            icon={<Icon name={item.icon} />}
+            active={activeId === item.id}
+            onClick={() => handleNav(item.id)}
+            trailing={
+              <button
+                type="button"
+                className={styles.codeBtn}
+                aria-label={`View ${item.label} source`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onOpenSource(item.id);
+                }}
+              >
+                {"</>"}
+              </button>
+            }
+          >
+            {item.label}
+          </SidebarItem>
+        ))}
+      </SidebarGroup>
+      <SidebarSeparator />
+      <SidebarGroup label="Tokens">
+        <SidebarItem
+          icon={<Icon name="layers" />}
+          active={activeId === "shadows"}
+          onClick={() => handleNav("shadows")}
+          trailing={
+            <button
+              type="button"
+              className={styles.codeBtn}
+              aria-label="View Shadows source"
+              onClick={(e) => {
+                e.stopPropagation();
+                onOpenSource("shadows");
+              }}
+            >
+              {"</>"}
+            </button>
+          }
+        >
+          Shadows
+        </SidebarItem>
+        <SidebarItem
+          icon={<Icon name="palette" />}
+          active={activeId === "colors"}
+          onClick={() => handleNav("colors")}
+          trailing={
+            <button
+              type="button"
+              className={styles.codeBtn}
+              aria-label="View Color Tokens source"
+              onClick={(e) => {
+                e.stopPropagation();
+                onOpenSource("colors");
+              }}
+            >
+              {"</>"}
+            </button>
+          }
+        >
+          Colors
+        </SidebarItem>
+      </SidebarGroup>
+    </>
+  );
+}
+
+function SidebarBackdrop() {
+  const { open, toggle } = useSidebar();
+  return (
+    <div
+      className={styles.backdrop}
+      data-open={open}
+      onClick={toggle}
+      aria-hidden="true"
+    />
+  );
+}
+
 export default function Home() {
   const [panelId, setPanelId] = useState<string | null>(null);
   const [bw, setBw] = useState(false);
   const [dark, setDark] = useState(false);
+  const [playgroundOpen, setPlaygroundOpen] = useState(false);
+  const [paletteOpen, setPaletteOpen] = useState(false);
+  const [activeId, setActiveId] = useState<string>("button");
 
   const toggleBw = useCallback(() => {
     startTransition(() => {
@@ -2130,6 +2592,67 @@ export default function Home() {
     el.classList.toggle("light", !dark);
   }, [dark]);
 
+  /* Global ⌘K / Ctrl+K opens the command palette */
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setPaletteOpen((o) => !o);
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, []);
+
+  /* Cross-component commands dispatched from the palette */
+  useEffect(() => {
+    const onToggleTheme = () => toggleTheme();
+    const onOpenPlayground = () => setPlaygroundOpen(true);
+    window.addEventListener("app:toggle-theme", onToggleTheme);
+    window.addEventListener("app:open-theme-playground", onOpenPlayground);
+    return () => {
+      window.removeEventListener("app:toggle-theme", onToggleTheme);
+      window.removeEventListener("app:open-theme-playground", onOpenPlayground);
+    };
+  }, [toggleTheme]);
+
+  /* Scroll-spy: highlight the current section in the sidebar nav */
+  useEffect(() => {
+    const root = document.querySelector<HTMLElement>("[data-scroll-container]");
+    if (!root) return;
+    const sections = Array.from(
+      root.querySelectorAll<HTMLElement>("section[id]"),
+    );
+    if (!sections.length) return;
+    const visible = new Set<string>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const id = entry.target.id;
+          if (entry.isIntersecting) visible.add(id);
+          else visible.delete(id);
+        }
+        let best: string | null = null;
+        let bestTop = Infinity;
+        for (const id of visible) {
+          const el = document.getElementById(id);
+          if (!el) continue;
+          const top = el.getBoundingClientRect().top;
+          if (top < bestTop) {
+            bestTop = top;
+            best = id;
+          }
+        }
+        if (best) setActiveId(best);
+      },
+      { root, rootMargin: "0px 0px -55% 0px", threshold: [0, 0.25, 0.5, 1] },
+    );
+    sections.forEach((s) => {
+      observer.observe(s);
+    });
+    return () => observer.disconnect();
+  }, []);
+
   const openPanel = useCallback((id: string) => {
     startTransition(() => {
       setPanelId(id);
@@ -2152,37 +2675,14 @@ export default function Home() {
           <span>Design Engine</span>
         </SidebarHeader>
         <SidebarContent>
-          <SidebarGroup label="Primitives">
-            {navItems.map((item) => (
-              <SidebarItem
-                key={item.id}
-                icon={<span>{item.icon}</span>}
-                onClick={() => openPanel(item.id)}
-              >
-                {item.label}
-              </SidebarItem>
-            ))}
-          </SidebarGroup>
-          <SidebarSeparator />
-          <SidebarGroup label="Tokens">
-            <SidebarItem
-              icon={<span>▧</span>}
-              onClick={() => openPanel("shadows")}
-            >
-              Shadows
-            </SidebarItem>
-            <SidebarItem
-              icon={<span>◈</span>}
-              onClick={() => openPanel("colors")}
-            >
-              Colors
-            </SidebarItem>
-          </SidebarGroup>
+          <SidebarNav activeId={activeId} onOpenSource={openPanel} />
         </SidebarContent>
         <SidebarFooter>
           <SidebarItem icon={<span>v1.0</span>}>13 primitives</SidebarItem>
         </SidebarFooter>
       </Sidebar>
+
+      <SidebarBackdrop />
 
       <main className={styles.mainContent}>
         <div className={styles.topBar}>
@@ -2196,6 +2696,22 @@ export default function Home() {
               alignItems: "center",
             }}
           >
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setPlaygroundOpen(true)}
+              aria-label="Open theme playground"
+            >
+              <Icon name="settings" size="sm" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setPaletteOpen(true)}
+              aria-label="Open command palette"
+            >
+              <Icon name="search" size="sm" /> ⌘K
+            </Button>
             <Button
               variant={dark ? "primary" : "ghost"}
               size="sm"
@@ -2223,6 +2739,15 @@ export default function Home() {
         title={panel?.title ?? ""}
         source={panel?.source ?? ""}
         onClose={closePanel}
+      />
+
+      <ThemePlayground
+        open={playgroundOpen}
+        onClose={() => setPlaygroundOpen(false)}
+      />
+      <CommandPalette
+        open={paletteOpen}
+        onClose={() => setPaletteOpen(false)}
       />
     </SidebarProvider>
   );

@@ -95,8 +95,8 @@
   overflow-y: auto;
   margin: 0;
   padding: 1.25rem;
-  background-color: #0d1117;
-  color: #c9d1d9;
+  background-color: var(--color-code-bg);
+  color: var(--color-code-text);
   font-family: "JetBrains Mono", "SF Mono", "Fira Code", ui-monospace, monospace;
   font-size: 0.8125rem;
   line-height: 1.65;

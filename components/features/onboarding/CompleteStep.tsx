@@ -22,8 +22,7 @@ export function CompleteStep() {
   };
 
   const handleGoToDashboard = () => {
-    // In a real app, this would navigate to the dashboard
-    console.log("Navigate to dashboard");
+    // In a real app this would route to the dashboard.
   };
 
   return (

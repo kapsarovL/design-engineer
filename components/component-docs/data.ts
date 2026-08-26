@@ -8,6 +8,14 @@ export interface ComponentDoc {
   keyboard?: { key: string; action: string }[];
 }
 
+export function getComponentDoc(name: string): ComponentDoc {
+  const doc = docsData.find((d) => d.name === name);
+  if (!doc) {
+    throw new Error(`ComponentDoc "${name}" not found in docsData`);
+  }
+  return doc;
+}
+
 export const docsData: ComponentDoc[] = [
   {
     name: "button",
@@ -19,59 +27,110 @@ export const docsData: ComponentDoc[] = [
         name: "variant",
         type: '"primary" | "secondary" | "ghost" | "destructive"',
         default: '"primary"',
-        description: "Visual style variant",
+        description:
+          "Visual style. Reserve destructive for irreversible actions.",
       },
       {
         name: "size",
         type: '"sm" | "md" | "lg"',
         default: '"md"',
-        description: "Button size",
+        description: "Touch target — sm 32px, md 36px, lg 40px.",
       },
       {
-        name: "loading",
+        name: "pill",
         type: "boolean",
         default: "false",
-        description: "Shows spinner and disables interaction",
+        description: "Fully rounded (border-radius: pill) shape.",
       },
       {
         name: "icon",
         type: "React.ReactNode",
         default: "—",
-        description: "Icon element to render inside the button",
+        description:
+          "Leading icon. Becomes icon-only automatically when there is no label.",
       },
       {
         name: "iconPosition",
         type: '"start" | "end"',
         default: '"start"',
-        description: "Position of the icon relative to children",
+        description: "Placement of `icon` relative to the label.",
+      },
+      {
+        name: "trailingIcon",
+        type: "React.ReactNode",
+        default: "—",
+        description: "Second icon rendered after the label (e.g. a chevron).",
+      },
+      {
+        name: "loading",
+        type: "boolean",
+        default: "false",
+        description:
+          "Shows a spinner, sets data-loading, and disables interaction.",
       },
       {
         name: "asChild",
         type: "boolean",
         default: "false",
         description:
-          "Merges props onto child element instead of rendering a <button>",
+          "Merges button classes/attrs onto the single child element (polymorphic).",
+      },
+      {
+        name: "disabled",
+        type: "boolean",
+        default: "false",
+        description:
+          "Native attribute — blocks interaction and dims the button.",
+      },
+      {
+        name: "type",
+        type: '"button" | "submit" | "reset"',
+        default: '"submit"',
+        description:
+          'Native attribute. Set type="button" for actions that are not form submits.',
       },
     ],
     examples: [
       {
         label: "Variants",
-        code: `<Button variant="primary">Primary</Button>\n<Button variant="secondary">Secondary</Button>\n<Button variant="ghost">Ghost</Button>\n<Button variant="destructive">Delete</Button>`,
+        code: `<Button variant="primary">Save</Button>\n<Button variant="secondary">Cancel</Button>\n<Button variant="ghost">Dismiss</Button>\n<Button variant="destructive">Delete</Button>`,
       },
       {
         label: "Sizes",
         code: `<Button size="sm">Small</Button>\n<Button size="md">Medium</Button>\n<Button size="lg">Large</Button>`,
       },
-      { label: "Loading", code: `<Button loading>Saving...</Button>` },
       {
-        label: "With icon",
-        code: `<Button icon={<PlusIcon />}>Add item</Button>`,
+        label: "Pill",
+        code: `<Button pill>Primary</Button>\n<Button pill variant="secondary">Secondary</Button>`,
+      },
+      {
+        label: "Leading icon",
+        code: `<Button icon={<Icon name="plus" size="sm" />}>New item</Button>\n<Button variant="destructive" icon={<Icon name="trash" size="sm" />} iconPosition="end">Delete</Button>`,
+      },
+      {
+        label: "Icon-only",
+        code: `<Button aria-label="Add"><Icon name="plus" size="sm" /></Button>\n<Button variant="ghost" aria-label="Settings"><Icon name="settings" size="sm" /></Button>`,
+      },
+      {
+        label: "Trailing icon",
+        code: `<Button trailingIcon={<Icon name="arrow-right" size="sm" />}>Continue</Button>`,
+      },
+      {
+        label: "Loading",
+        code: `<Button loading>Saving…</Button>`,
+      },
+      {
+        label: "As link (asChild)",
+        code: `<Button asChild>\n  <a href="/settings">Open settings</a>\n</Button>`,
       },
     ],
     accessibility: [
-      "Uses native <button> element for built-in keyboard and screen reader support",
-      "Loading state sets aria-busy and disables the button",
-      "Destructive variant does not change semantics — use Dialog for confirmation",
+      "Renders a native <button>, so Enter/Space activation and screen-reader semantics are built in.",
+      'Always set type="button" on actions that are not form submits (native default is "submit").',
+      "Icon-only buttons must expose a name via aria-label or visually-hidden text.",
+      "Loading sets data-loading and disables the button — also pass aria-busy={loading} so assistive tech announces the pending state.",
+      "Focus is shown with a token-driven :focus-visible ring; never remove it.",
+      "destructive is visual only — pair irreversible actions with a confirm Dialog.",
     ],
   },
   {
@@ -437,6 +496,54 @@ export const docsData: ComponentDoc[] = [
     ],
   },
   {
+    name: "tag-group",
+    description:
+      "Context-driven group of removable labels for filtering and categorization. Composes TagGroup (provider) with TagList and Tag; tags support status and priority variants and an optional dismiss button.",
+    importPath: "@/components/primitives/tag/tag",
+    props: [
+      {
+        name: "TagGroup.onRemove",
+        type: "(key: string) => void",
+        default: "—",
+        description:
+          "Optional context callback fired when any child Tag is dismissed.",
+      },
+      {
+        name: "Tag.variant",
+        type: '"default" | "status" | "priority"',
+        default: '"default"',
+        description: "Visual style of the tag.",
+      },
+      {
+        name: "Tag.removable",
+        type: "boolean",
+        default: "false",
+        description: "Shows a dismiss (×) button.",
+      },
+      {
+        name: "Tag.onRemove",
+        type: "() => void",
+        default: "—",
+        description: "Callback when this tag's dismiss button is clicked.",
+      },
+    ],
+    examples: [
+      {
+        label: "Group",
+        code: `<TagGroup>\n  <Tag>Design</Tag>\n  <Tag variant="status">Active</Tag>\n  <Tag removable onRemove={remove}>Draft</Tag>\n</TagGroup>`,
+      },
+      {
+        label: "List",
+        code: `<TagList label="Filters">\n  <Tag>React</Tag>\n  <Tag>SCSS</Tag>\n</TagList>`,
+      },
+    ],
+    accessibility: [
+      "Dismiss buttons are real <button>s with an aria-label of `Remove <label>`.",
+      "Tags render as <li> inside a <ul>, so they announce as a list.",
+      "Keyboard: Tab reaches each dismiss button; Enter/Space activates it.",
+    ],
+  },
+  {
     name: "dialog",
     description:
       "Modal dialog with overlay, header, body, footer, and focus trapping.",
@@ -794,6 +901,165 @@ export const docsData: ComponentDoc[] = [
       { key: "ArrowDown", action: "Move to next item" },
       { key: "ArrowUp", action: "Move to previous item" },
       { key: "Escape", action: "Close menu" },
+    ],
+  },
+  {
+    name: "progress",
+    description:
+      'Accessible progress indicator for completion, loading, or multi-step state. Exposes role="progressbar" with ARIA value bindings.',
+    importPath: "@/components/primitives/progress/progress",
+    props: [
+      {
+        name: "value",
+        type: "number",
+        default: "—",
+        description: "Current value.",
+      },
+      {
+        name: "max",
+        type: "number",
+        default: "100",
+        description: "Maximum value.",
+      },
+      {
+        name: "aria-label",
+        type: "string",
+        default: "—",
+        description: "Accessible label when no visible text label is present.",
+      },
+      {
+        name: "className",
+        type: "string",
+        default: "—",
+        description: "Additional CSS class.",
+      },
+    ],
+    examples: [
+      {
+        label: "Basic",
+        code: '<Progress value={40} aria-label="Setup progress" />',
+      },
+    ],
+    accessibility: [
+      'role="progressbar" with aria-valuenow / aria-valuemin / aria-valuemax.',
+      "Always provide aria-label when the bar has no visible text.",
+    ],
+  },
+  {
+    name: "sidebar",
+    description:
+      "Compound navigation shell: provider, sidebar, trigger, and items with active state, leading icons, and an optional trailing slot.",
+    importPath: "@/components/primitives/sidebar/sidebar",
+    props: [
+      {
+        name: "side",
+        type: '"left" | "right"',
+        default: '"left"',
+        description: "Edge the sidebar docks to.",
+      },
+      {
+        name: "active",
+        type: "boolean",
+        default: "false",
+        description: "Marks a SidebarItem as active.",
+      },
+      {
+        name: "href",
+        type: "string",
+        default: "—",
+        description: "Renders the item as a link.",
+      },
+      {
+        name: "icon",
+        type: "React.ReactNode",
+        default: "—",
+        description: "Leading icon node.",
+      },
+      {
+        name: "trailing",
+        type: "React.ReactNode",
+        default: "—",
+        description: "Trailing slot (e.g. a code-button).",
+      },
+    ],
+    examples: [
+      {
+        label: "Basic",
+        code: '<Sidebar side="left">\n  <SidebarItem active icon={<Icon name="home" />}>Home</SidebarItem>\n</Sidebar>',
+      },
+    ],
+    accessibility: [
+      "Items render as <button> or <a> with visible focus rings.",
+      "Active item is conveyed visually and via aria-current.",
+    ],
+  },
+  {
+    name: "accordion",
+    description:
+      "Stacked disclosure sections that expand and collapse. Supports single-open or multiple-open modes and disabled items.",
+    importPath: "@/components/primitives/accordion/accordion",
+    props: [
+      {
+        name: "type",
+        type: '"single" | "multiple"',
+        default: '"single"',
+        description: "Whether one or many items may be open at once.",
+      },
+      {
+        name: "defaultValue",
+        type: "string | string[]",
+        default: "—",
+        description: "Item value(s) open on first render.",
+      },
+      {
+        name: "value",
+        type: "string",
+        default: "—",
+        description: "Unique key for an AccordionItem.",
+      },
+      {
+        name: "title",
+        type: "React.ReactNode",
+        default: "—",
+        description: "Visible label rendered in the trigger button.",
+      },
+      {
+        name: "disabled",
+        type: "boolean",
+        default: "false",
+        description: "Disables the item (not focusable or activatable).",
+      },
+    ],
+    examples: [
+      {
+        label: "Single (default open)",
+        code: `<Accordion type="single" defaultValue="a">
+  <AccordionItem value="a" title="What is the design system?">
+    <p>A token-driven, accessible React + SCSS component library.</p>
+  </AccordionItem>
+  <AccordionItem value="b" title="How do I theme it?">
+    <p>Adjust accent, radius, and spacing tokens live in the playground.</p>
+  </AccordionItem>
+</Accordion>`,
+      },
+      {
+        label: "Multiple",
+        code: `<Accordion type="multiple" defaultValue={["x", "y"]}>
+  <AccordionItem value="x" title="First">Content</AccordionItem>
+  <AccordionItem value="y" title="Second">Content</AccordionItem>
+  <AccordionItem value="z" title="Third" disabled>Content</AccordionItem>
+</Accordion>`,
+      },
+    ],
+    accessibility: [
+      "Each trigger is a <button> with aria-expanded and aria-controls.",
+      'Each panel is role="region" labelled by its trigger via aria-labelledby.',
+      "Closed panels use the hidden attribute (removed from a11y tree and tab order).",
+      "Disabled items are not focusable or activatable.",
+    ],
+    keyboard: [
+      { key: "Enter / Space", action: "Toggle the focused item." },
+      { key: "Tab", action: "Move focus between triggers." },
     ],
   },
 ];
