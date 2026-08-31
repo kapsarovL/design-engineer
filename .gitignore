@@ -44,3 +44,12 @@ next-env.d.ts
 
 # Impeccable skill scratch output
 .impeccable/
+
+# Yarn Modern
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
